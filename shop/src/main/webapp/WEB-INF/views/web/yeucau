@@ -1,0 +1,8 @@
+Danh sach các trang
+1. Trang chủ : home.html, index.html
+2. Giới thiệu : about.html (giới thiệu cty, dịch vụ sản phẩm,...)
+3. Liên hệ : contact.html (form liên hệ, thông tin, bản đồ)
+4. Danh sách sản phẩm : product.html
+5. Chi tiết sản phẩm : product-detail.html
+6. Đăng nhập- đăng ký : login-register.html
+7. Giỏ hàng : cart.html

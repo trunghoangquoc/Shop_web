@@ -1,0 +1,12 @@
+xs ( <= 640px)
+sm (768 px)
+
+md (1024 < 1200)
+
+lg ( 1200 --> )
+
+col-xs-12 => 1cot
+col-sm-6 => 2 cột
+col-sm-4 => 3 cột
+
+
