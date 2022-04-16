@@ -1,0 +1,38 @@
+package com.laptrinhjavawebshop.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.laptrinhjavawebshop.converter.UserConverter;
+import com.laptrinhjavawebshop.dto.UserDTO;
+import com.laptrinhjavawebshop.entity.RoleEntity;
+import com.laptrinhjavawebshop.entity.UserEntity;
+import com.laptrinhjavawebshop.repository.RoleRepository;
+import com.laptrinhjavawebshop.repository.UserRepository;
+import com.laptrinhjavawebshop.service.IUserService;
+
+public class UserService implements IUserService {
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private UserConverter userConverter;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Override
+	public UserDTO save(UserDTO dto) {
+		UserEntity userEntity = new UserEntity();
+		userEntity = userConverter.toEntity(dto);
+		List<RoleEntity> roles = new ArrayList<>();
+		roles.add(roleRepository.findOneByCode("USER"));
+		userEntity.setRoles(roles);
+	     
+		return userConverter.toDto(userRepository.save(userEntity));
+	}
+
+}

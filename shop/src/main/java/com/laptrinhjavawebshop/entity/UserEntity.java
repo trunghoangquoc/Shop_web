@@ -26,15 +26,27 @@ public class UserEntity extends BaseEntity {
 
 	@Column
 	private Integer status;
+	
+	@Column(name = "email")
+	private String email;
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
 	//many to many relationship in JPA //tạo ra những khóa ngoại vào bảng user_role 
-		//bỏ bên roleEmtity cũng dc
-		//@ManyToMany(fetch = FetchType.LAZY) <=> @ManyToMany() 
-		//:ko khai báo thì mặc định là Lazy(ưu tiên sử dụng LAZY)
-		//@ManyToMany(fetch = FetchType.EAGER) khi lấy user lên thì sẽ get cái role lên 
-		// -> khi lấy user lên thì sẽ get cái role lên . mà 1 user có nhiều role
-		
-	@ManyToMany(fetch = FetchType.EAGER)
+			//bỏ bên roleEmtity cũng dc
+			//@ManyToMany(fetch = FetchType.LAZY) <=> @ManyToMany() 
+			//:ko khai báo thì mặc định là Lazy(ưu tiên sử dụng LAZY)
+			//@ManyToMany(fetch = FetchType.EAGER) khi lấy user lên thì sẽ get cái role lên 
+			// -> khi lấy user lên thì sẽ get cái role lên . mà 1 user có nhiều role
+			
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_role", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))

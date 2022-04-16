@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import com.laptrinhjavawebshop.dto.MyUser;
 
+@Component
 public class SecurityUtils {
 	
 //	Spring_Security sẽ hỗ trợ đăng nhập và sẽ lưu thông tin ng dùng vào 

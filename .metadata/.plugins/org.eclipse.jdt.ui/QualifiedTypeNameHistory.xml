@@ -2,11 +2,22 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter"/>
     <fullyQualifiedTypeName name="com.laptrinhjavawebshop.service.impl.CustomUserDetailsService"/>
-    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.repository.UserRepository"/>
     <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.entity.UserEntity"/>
     <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
     <fullyQualifiedTypeName name="org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity"/>
     <fullyQualifiedTypeName name="org.springframework.web.servlet.ModelAndView"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
+    <fullyQualifiedTypeName name="javax.persistence.Column"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
+    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.repository.UserRepository"/>
+    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.converter.UserConverter"/>
+    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.entity.UserEntity"/>
+    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.entity.RoleEntity"/>
+    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.repository.RoleRepository"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.service.IUserService"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
+    <fullyQualifiedTypeName name="com.laptrinhjavawebshop.dto.UserDTO"/>
 </qualifiedTypeNameHistroy>

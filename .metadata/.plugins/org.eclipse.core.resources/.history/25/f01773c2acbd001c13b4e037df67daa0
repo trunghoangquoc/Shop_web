@@ -1,0 +1,5 @@
+package com.laptrinhjavawebshop.service;
+
+public interface IUserService {
+
+}
