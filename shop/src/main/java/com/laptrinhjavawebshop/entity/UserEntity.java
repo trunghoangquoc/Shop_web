@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,15 +31,18 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "email")
 	private String email;
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	@OneToMany(mappedBy = "user")
+	private List<FeedBackEntity> feedback = new ArrayList<>();
+	//vì 1 user có nhiều feedback nên cần tạo 1 list
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_role", 
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private List<RoleEntity> roles = new ArrayList<>();
+
+
 	//many to many relationship in JPA //tạo ra những khóa ngoại vào bảng user_role 
 			//bỏ bên roleEmtity cũng dc
 			//@ManyToMany(fetch = FetchType.LAZY) <=> @ManyToMany() 
@@ -46,14 +50,16 @@ public class UserEntity extends BaseEntity {
 			//@ManyToMany(fetch = FetchType.EAGER) khi lấy user lên thì sẽ get cái role lên 
 			// -> khi lấy user lên thì sẽ get cái role lên . mà 1 user có nhiều role
 			
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_role", 
-				joinColumns = @JoinColumn(name = "user_id"), 
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private List<RoleEntity> roles = new ArrayList<>();
-
 	public String getUserName() {
 		return userName;
+	}
+
+	public List<FeedBackEntity> getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(List<FeedBackEntity> feedback) {
+		this.feedback = feedback;
 	}
 
 	public void setUserName(String userName) {
@@ -90,5 +96,12 @@ public class UserEntity extends BaseEntity {
 
 	public void setRoles(List<RoleEntity> roles) {
 		this.roles = roles;
+	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

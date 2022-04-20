@@ -42,18 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Các trang không yêu cầu login
         http.authorizeRequests().antMatchers("/trang-chu", "/dang-ky", "/dang-nhap" ).permitAll();
 
-        // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
-        // Nếu chưa login, nó sẽ redirect tới trang /login.
-//        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-
         // Trang chỉ dành cho ADMIN
         http.authorizeRequests().antMatchers("/admin/home").access("hasRole('ADMIN')");
 
-        // Khi người dùng đã login, với vai trò XX.
-        // Nhưng truy cập vào trang yêu cầu vai trò YY,
-        // Ngoại lệ AccessDeniedException sẽ ném ra.
-        // Ở đây mình tạo thêm một trang web lỗi tên 403.html (mọi người có thể tạo bất cứ tên nào kh
-//        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        //trang bat phải đăng nhập quyền.
+//        http.authorizeRequests().antMatchers("/contact").access("hasRole('USER')");
+        
+       //Nếu cần vô những trang yêu cầu quyền mà chưa đăng nhập thì sẽ vào thăng "/accessDenied"
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/accessDenied");
 
         // Cấu hình cho Login Form.

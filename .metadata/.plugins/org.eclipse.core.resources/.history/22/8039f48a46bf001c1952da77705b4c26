@@ -1,0 +1,8 @@
+package com.laptrinhjavawebshop.controller.admin;
+
+import org.springframework.stereotype.Controller;
+
+@Controller(value = "ProductControllerOfAdmin")
+public class ProductController {
+    
+}

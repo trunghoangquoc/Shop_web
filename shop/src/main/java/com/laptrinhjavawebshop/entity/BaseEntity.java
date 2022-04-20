@@ -9,19 +9,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+@EnableAutoConfiguration
 @MappedSuperclass// khai bao 1 annotation là Entity cha của các Entity kia
 @EntityListeners(AuditingEntityListener.class)//khai bao Auditing
 public abstract class BaseEntity {
 	
 	@Id//thể hiện khóa chính, not null
-	//bật tính năng tự tăng Auto Increment
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//bật tính năng tự tăng Auto Increment
 	private Long id;
 	
 	@Column

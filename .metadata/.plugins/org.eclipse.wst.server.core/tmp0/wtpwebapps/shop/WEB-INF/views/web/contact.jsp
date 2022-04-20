@@ -109,7 +109,7 @@
  style="border:0; width: 100%; height: 500px;" allowfullscreen="" loading="lazy" ></iframe>
 
  <div class="contact-title">
-   <h2>Leave Messager </h2>
+   <h2>Feedback </h2>
  </div>
  <!-- form -->
  <div class="container form-contact">
@@ -128,6 +128,10 @@
     <div class="form-group">
       <label for="inputAddress">Address</label>
       <input type="text" class="form-control" id="inputAddress" placeholder="address">
+    </div>
+     <div class="form-group">
+      <label for="inputNumber">NumberPhone</label>
+      <input type="number" class="form-control" id="inputNumber" placeholder="NumberPhone">
     </div>
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Your Messager</label>

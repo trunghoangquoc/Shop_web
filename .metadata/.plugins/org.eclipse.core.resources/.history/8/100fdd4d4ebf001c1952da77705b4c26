@@ -1,0 +1,15 @@
+package com.laptrinhjavawebshop.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.laptrinhjavawebshop.entity.ProductEntity;
+
+@Repository
+public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
+
+	ProductEntity findOne(long id);
+
+
+
+}

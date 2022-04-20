@@ -1,0 +1,27 @@
+package com.laptrinhjavawebshop.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "feedback")
+public class FeedBackEntity extends BaseEntity {
+
+	@Column(name = "fullname")
+	private String fullName;
+
+	@Column(name = "address")
+	private String address;
+
+	@Column(name = "email")
+	private String email;
+	
+	@Column(name = "numberphone")
+	private Long numberPhone;
+	
+	@Column(name = "yourmessager", columnDefinition = "TEXT")
+	private String yourMessager;
+	
+	
+}

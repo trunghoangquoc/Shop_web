@@ -6,16 +6,16 @@
 <c:url var="product" value="/product" />
 <c:url var="loginURL" value="/dang-nhap" />
 <c:url var="registerURL" value="/dang-ky" />
+<c:url var="contactURL" value="/contact" />
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fresh Fruit</title>
-<link rel="stylesheet"
-	href="<c:url value='/template/web/css/bootstrap.min.css' /> ">
-<link rel="stylesheet"
-	href="<c:url value='/template/web/css/my_style.css' /> ">
+<link rel="stylesheet" href="<c:url value='/template/web/css/bootstrap.min.css' /> ">
+<link rel="stylesheet" href="<c:url value='/template/web/css/my_style.css' /> ">
+
 </head>
 
 <body>
@@ -49,7 +49,10 @@
 									class="dropdown-item" href='${product}'>Fresh Fruit</a> <a
 									class="dropdown-item" href='${product}'>Fresh Fruit</a>
 							</div></li>
-						<li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+						<li class="nav-item">
+						<c:url var="contactURL" value="/contact" />
+						<a class="nav-link" href='${contactURL}'>CONTACT</a>
+						</li>
 						<li class="nav-item"><a class="nav-link" href="cart.html">CART</a></li>
 
 					</ul>
@@ -67,16 +70,21 @@
 					<form class="form-inline my-2 my-lg-0 sign-up">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
 						<c:url var="registerURL" value="/dang-ky" />
-							<a href='${registerURL}'> Sign-up</a>
+							<a href='${registerURL}'> Registration</a>
 						</button>
 					</form>
-					<form class="form-inline  login">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-						<c:url var="logout" value="/logoutSuccessful" />
+
+					<button class="btn btn-outline-success" type="submit">
+					<a  href="#" >
+<%--                        Hello,<%=SecurityUtils.getPrincipal().getFullName()%> --%>
+                    </a>
+					</button>
+					<button class="btn btn-sm btn-outline-secondary" type="button">
+					<c:url var="logout" value="/logoutSuccessful" />
 							<a href='${logout}'> Logout </a>
-						</button>
-					</form>
-			
+					</button>
+				
+					
 				</div>
 			</div>
 		</nav>
@@ -649,7 +657,7 @@
 	
 	<script src="<c:url value='/template/web/js/jquery.min.js' />" ></script>
 	<script src="<c:url value='/template/web/js/bootstrap.min.js' /> " ></script>
-
+  
 </body>
 
 </html>

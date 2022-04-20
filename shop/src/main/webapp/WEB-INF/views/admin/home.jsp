@@ -108,16 +108,12 @@
 			<ul class="nav nav-list">
 				<li><a href="#" class="dropdown-toggle"> <i
 						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
-						Quản lý bài viết <b class="arrow fa fa-angle-down"></b>
+						Product Management <b class="arrow fa fa-angle-down"></b>
 				</a> <b class="arrow"></b>
 					<ul class="submenu">
 						<li><a
-							href="<c:url value='/quan-tri/bai-viet/danh-sach?page=1&limit=2'/>">
-								<i class="menu-icon fa fa-caret-right"></i> DS bài viết
-						</a> <b class="arrow"></b></li>
-						<li><a
-							href="<c:url value='/quan-tri/bai-viet/danh-sach?page=1&limit=2'/>">
-								<i class="menu-icon fa fa-caret-right"></i> DS bài viết đã xóa
+							href="<c:url value='/admin/product/list?page=1&limit=2'/>">
+								<i class="menu-icon fa fa-caret-right"></i>List Product
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 			</ul>
@@ -153,7 +149,7 @@
 		<div class="footer">
 			<div class="footer-inner">
 				<div class="footer-content">
-					<span class="bigger-120"> <span class="blue bolder">laptrinhjavaweb.com</span>
+					<span class="bigger-120"> <span class="blue bolder">Â©238_HoangQuocViet: BkAptech.com</span>
 					</span> &nbsp; &nbsp; <span class="action-buttons"> <a href="#">
 							<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
 					</a> <a href="#"> <i

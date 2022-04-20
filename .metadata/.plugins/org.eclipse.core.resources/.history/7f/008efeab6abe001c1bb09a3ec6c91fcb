@@ -1,0 +1,16 @@
+package com.laptrinhjavawebshop.service;
+
+import java.util.List;
+
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+
+import com.laptrinhjavawebshop.dto.ProductDTO;
+
+public interface IProductService {
+   List<ProductDTO> findAll(Pageable page);
+   int getTotalItem();
+   
+   ProductDTO findOne(long id);
+   ProductDTO save(ProductDTO dto);
+   void delete(long[] ids);
+}

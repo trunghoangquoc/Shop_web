@@ -1,0 +1,29 @@
+package com.laptrinhjavawebshop.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.laptrinhjavawebshop.converter.FeedBackConverter;
+import com.laptrinhjavawebshop.dto.FeedBackDTO;
+import com.laptrinhjavawebshop.entity.FeedBackEntity;
+import com.laptrinhjavawebshop.repository.FeedBackRepository;
+import com.laptrinhjavawebshop.service.IFeedBackService;
+
+@Service
+public class FeedBackService implements IFeedBackService {
+
+	@Autowired
+	private FeedBackRepository feedbackRepository;
+	
+	@Autowired
+	private FeedBackConverter feedbackConverter;
+	
+	@Override
+	public FeedBackDTO save(FeedBackDTO dto) {
+		FeedBackEntity entity = new FeedBackEntity();
+		entity = feedbackConverter.toEntity(dto);
+		
+		return feedbackConverter.toDto(feedbackRepository.save(entity));
+	}
+
+}

@@ -1,0 +1,82 @@
+package com.laptrinhjavawebshop.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.laptrinhjavawebshop.converter.ProductConverter;
+import com.laptrinhjavawebshop.dto.ProductDTO;
+import com.laptrinhjavawebshop.entity.CategoryEntity;
+import com.laptrinhjavawebshop.entity.ProductEntity;
+import com.laptrinhjavawebshop.repository.CategoryRepository;
+import com.laptrinhjavawebshop.repository.ProductRepository;
+import com.laptrinhjavawebshop.service.IProductService;
+
+@Service
+public class ProductService implements IProductService {
+
+	@Autowired
+	private ProductRepository productRepository;
+
+	@Autowired
+	private ProductConverter productConverter;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	@Override
+	public List<ProductDTO> findAll(Pageable page) {
+		List<ProductDTO> productDTO = new ArrayList<ProductDTO>();
+		List<ProductEntity> productEntity = productRepository.findAll(page).getContent();
+		for (ProductEntity item : productEntity) {
+			ProductDTO result = productConverter.toDTO(item);
+			productDTO.add(result);
+		}
+		return productDTO;
+		
+	}
+
+	@Override
+	public int getTotalItem() {
+		
+		return (int) productRepository.count();
+	}
+
+	@Override
+	public ProductDTO findById(long id) {
+		Optional<ProductEntity> entity = productRepository.findById(id);
+		ProductDTO dto = new ProductDTO();
+		if(entity.isPresent() == true) {
+			dto.setName(entity.get().getName());
+			dto.setTotalNumber(entity.get().getTotalNumber());
+			dto.setPrice(entity.get().getPrice());
+			dto.setShortDescription(entity.get().getShortDescription());
+		    dto.setCategoryCode(entity.get().getCategory().getCode());
+		}
+		return dto;
+	
+	
+	}
+
+	@Override
+	
+	public ProductDTO save(ProductDTO dto) {
+		CategoryEntity category = categoryRepository.findOneByCode(dto.getCategoryCode());
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void delete(long[] ids) {
+		for (long id: ids) {
+			productRepository.deleteById(id);
+		}
+	}
+
+}
