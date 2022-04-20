@@ -1,0 +1,7 @@
+package com.laptrinhjavawebshop.service.impl;
+
+import com.laptrinhjavawebshop.service.IProductService;
+
+public class ProductService implements IProductService {
+
+}

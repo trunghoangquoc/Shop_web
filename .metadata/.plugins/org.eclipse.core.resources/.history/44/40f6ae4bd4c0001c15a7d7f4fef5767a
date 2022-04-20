@@ -1,0 +1,21 @@
+package com.laptrinhjavawebshop.api.web;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.laptrinhjavawebshop.dto.FeedBackDTO;
+import com.laptrinhjavawebshop.service.IFeedBackService;
+
+@RestController (value = "fbAPIOfWeb")
+public class FeedBackAPI {
+    @Autowired
+    private IFeedBackService feedbackService;
+	
+	@PostMapping(value = "/api/feedback")
+	public FeedBackDTO feedBack (@RequestBody FeedBackDTO dto) {
+	
+		return feedbackService.save(dto);
+	}
+}

@@ -1,5 +1,8 @@
 package com.laptrinhjavawebshop.controller.web;
 
-public class ProductController {
+import org.springframework.stereotype.Controller;
 
+@Controller(value = "ProductControllerOfWeb")
+public class ProductController {
+	
 }

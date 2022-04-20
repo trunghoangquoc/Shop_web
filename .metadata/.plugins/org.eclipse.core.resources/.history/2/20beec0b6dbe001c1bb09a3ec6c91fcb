@@ -1,0 +1,53 @@
+package com.laptrinhjavawebshop.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.laptrinhjavawebshop.dto.ProductDTO;
+import com.laptrinhjavawebshop.entity.ProductEntity;
+import com.laptrinhjavawebshop.repository.ProductRepository;
+import com.laptrinhjavawebshop.service.IProductService;
+
+@Service
+public class ProductService implements IProductService {
+
+	@Autowired
+	private ProductRepository productRepository;
+	
+	
+	@Override
+	public List<ProductDTO> findAll(Pageable page) {
+		List<ProductDTO> productDto = new ArrayList<ProductDTO>();
+		List<ProductEntity> productEntity = productRepository.findAll(page).getName();
+		return null;
+	}
+
+	@Override
+	public int getTotalItem() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ProductDTO findOne(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProductDTO save(ProductDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(long[] ids) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

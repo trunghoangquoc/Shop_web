@@ -1,5 +1,0 @@
-package com.laptrinhjavawebshop.config;
-
-public class WebSecurityConfig {
-
-}

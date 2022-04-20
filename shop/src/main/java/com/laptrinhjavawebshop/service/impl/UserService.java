@@ -33,7 +33,7 @@ public class UserService implements IUserService {
 		List<RoleEntity> roles = new ArrayList<>();
 		roles.add(roleRepository.findOneByCode("USER"));
 		userEntity.setRoles(roles);
-	     
+	    userEntity.setStatus(1);
 		return userConverter.toDto(userRepository.save(userEntity));
 	}
 

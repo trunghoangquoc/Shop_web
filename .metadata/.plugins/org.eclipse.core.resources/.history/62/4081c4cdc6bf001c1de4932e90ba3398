@@ -1,0 +1,5 @@
+package com.laptrinhjavawebshop.dto;
+
+public class FeedBackDTO {
+
+}

@@ -1,5 +1,7 @@
 package com.laptrinhjavawebshop.service;
 
-public interface ICategoryService {
+import java.util.Map;
 
+public interface ICategoryService {
+     Map<String,String> findAll();
 }

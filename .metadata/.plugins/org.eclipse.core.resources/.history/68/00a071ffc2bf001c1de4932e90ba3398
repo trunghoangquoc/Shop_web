@@ -1,0 +1,5 @@
+package com.laptrinhjavawebshop.entity;
+
+public class FeedBackEntity {
+
+}

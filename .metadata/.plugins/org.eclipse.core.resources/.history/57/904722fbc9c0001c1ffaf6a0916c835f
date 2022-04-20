@@ -1,0 +1,5 @@
+package com.laptrinhjavawebshop.api.admin;
+
+public class ProductAPI {
+
+}
