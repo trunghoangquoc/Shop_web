@@ -42,13 +42,6 @@ public class UserEntity extends BaseEntity {
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles = new ArrayList<>();
 
-
-	//many to many relationship in JPA //tạo ra những khóa ngoại vào bảng user_role 
-			//bỏ bên roleEmtity cũng dc
-			//@ManyToMany(fetch = FetchType.LAZY) <=> @ManyToMany() 
-			//:ko khai báo thì mặc định là Lazy(ưu tiên sử dụng LAZY)
-			//@ManyToMany(fetch = FetchType.EAGER) khi lấy user lên thì sẽ get cái role lên 
-			// -> khi lấy user lên thì sẽ get cái role lên . mà 1 user có nhiều role
 			
 	public String getUserName() {
 		return userName;

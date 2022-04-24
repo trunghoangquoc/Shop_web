@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<%@page session="false" %>
 <c:url var="productURL" value="/admin/product/list"/>
 <c:url var="adminURL" value="/admin/home"/>
 <c:url var="productAPI" value="/api/product"/>
@@ -161,7 +162,7 @@
 						<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Tên Sản Phẩm</label>
 								<div class="col-sm-9">
-									<form:input path="name" cssClass="col-xs-10 col-sm-5"/>
+									<form:input path="name" cssClass="col-xs-10 col-sm-5" id="name" />
 								</div>
 						</div>
 						<div class="form-group">

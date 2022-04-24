@@ -12,9 +12,6 @@ import com.laptrinhjavawebshop.dto.MyUser;
 @Component
 public class SecurityUtils {
 	
-//	Spring_Security sẽ hỗ trợ đăng nhập và sẽ lưu thông tin ng dùng vào 
-//	   principal (đối tượng chứa tất cả thông tin ng dùng)
-//	   + muốn get thông tin ra (name, password, id, full name,...)
 	public static MyUser getPrincipal() {
 		MyUser myUser = (MyUser) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
         return myUser;

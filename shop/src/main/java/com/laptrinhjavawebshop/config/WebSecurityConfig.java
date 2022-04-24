@@ -29,8 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        // Sét đặt dịch vụ để tìm kiếm User trong Database.
-        // Và sét đặt PasswordEncoder.
+    
         auth.userDetailsService(userDetailsService).passwordEncoder(appConfig.passwordEncoder());
     }
 
@@ -44,7 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Trang chỉ dành cho ADMIN
         http.authorizeRequests().antMatchers("/admin/home").access("hasRole('ADMIN')");
-
+//        http.authorizeRequests().antMatchers("/admin/product/*").access("hasRole('PRODUCT,ADMIN')");
+//        http.authorizeRequests().antMatchers("/admin/user/*").access("hasRole('MANAGER,ADMIN')");
         //trang bat phải đăng nhập quyền.
 //        http.authorizeRequests().antMatchers("/contact").access("hasRole('USER')");
         

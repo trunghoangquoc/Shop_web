@@ -24,8 +24,7 @@ public class UserConverter {
 	
 	
 	
-	//converter qua entity mới xuống data.
-	//thêm mới thì ko cần có id
+
 	public UserEntity toEntity(UserDTO dto) {
 		
 		 UserEntity userEntity = new UserEntity();

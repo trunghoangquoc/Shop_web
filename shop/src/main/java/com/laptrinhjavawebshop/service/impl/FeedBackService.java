@@ -1,5 +1,7 @@
 package com.laptrinhjavawebshop.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,31 +21,33 @@ public class FeedBackService implements IFeedBackService {
 
 	@Autowired
 	private FeedBackRepository feedbackRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private FeedBackConverter feedbackConverter;
-	
+
 	@Autowired
 	private SecurityUtils securityUtil;
-	
+
 	@Override
 	public FeedBackDTO save(FeedBackDTO dto) {
-		FeedBackEntity entity = new FeedBackEntity();
+
+		FeedBackEntity feedBackentity = new FeedBackEntity();
+		Optional<UserEntity> userEntity ;
+		feedBackentity = feedbackConverter.toEntity(dto);
 		UserEntity user = new UserEntity();
-		entity = feedbackConverter.toEntity(dto);
+//		MyUser myUser = (MyUser) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
+		MyUser myUser = securityUtil.getPrincipal();
+		if (myUser.getId_user() != null) {
+			userEntity = userRepository.findById(myUser.getId_user());
+			user.setUserName(userEntity.get().getUserName());
+			user.setId(userEntity.get().getId());
+			feedBackentity.setUser(user);
+		} 
 
-		MyUser myUser = (MyUser) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
-		if(myUser.getUsername() != null) {
-			user = userRepository.findOneByUserName(myUser.getUsername());
-			entity.setUser(user);//chính là set Field user_id dưới DB
-		}else {
-			entity.setUser(null);
-		}
-	
-		return feedbackConverter.toDto(feedbackRepository.save(entity));
+		return feedbackConverter.toDto(feedbackRepository.save(feedBackentity));
+
 	}
-
 }

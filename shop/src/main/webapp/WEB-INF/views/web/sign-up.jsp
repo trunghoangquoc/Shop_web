@@ -132,7 +132,7 @@
 		<div class="container footer-style">
 			<div class="row">
 				<div class="col-md-4">
-					<img src="./image/logo.png" alt="">
+					<img src="<c:url value='/template/image/logo.png' /> " alt="">
 					<ul class="info">
 						<li>Address :238 ,Hoang Quoc Viet</li>
 						<li>Phone :+0123456789</li>

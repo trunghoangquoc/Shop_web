@@ -26,7 +26,7 @@ public class ProductService implements IProductService {
 
 	@Autowired
 	private ProductConverter productConverter;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
@@ -45,12 +45,11 @@ public class ProductService implements IProductService {
 			productDTO.add(result);
 		}
 		return productDTO;
-		
+
 	}
 
 	@Override
 	public int getTotalItem() {
-		
 		return (int) productRepository.count();
 	}
 
@@ -64,24 +63,13 @@ public class ProductService implements IProductService {
 	@Transactional
 	public ProductDTO save(ProductDTO dto) {
 		CategoryEntity category = categoryRepository.findOneByCode(dto.getCategoryCode());
-		Optional<ProductEntity> result;
 		ProductEntity entity = new ProductEntity();
-		if (dto.getId() != null ) {
-			result = productRepository.findById(dto.getId());
-			ProductEntity old = new ProductEntity();
-			old.setName(result.get().getName());
-			old.setPrice(result.get().getPrice());
-			old.setShortDescription(result.get().getShortDescription());
-			old.setTotalNumber(result.get().getTotalNumber());
-			old.setCreatedBy(result.get().getCreatedBy());
-			old.setCreatedDate(result.get().getCreatedDate());
-			old.setModifiedBy(result.get().getModifiedBy());
-			old.setModifiedDate(result.get().getModifiedDate());
-			
-			entity = productConverter.toEntity(dto, old);
-			
-		}else {
-			entity = productConverter.toEntity(dto);
+		Optional<ProductEntity> oldProductEntity = productRepository.findById(dto.getId());
+		entity = productConverter.toEntity(dto);
+		if(dto.getId() !=null) {
+			entity.setId(dto.getId());
+			entity.setCreatedBy(oldProductEntity.get().getCreatedBy());
+			entity.setCreatedDate(oldProductEntity.get().getCreatedDate());
 		}
 		entity.setCategory(category);
 		return productConverter.toDto(productRepository.save(entity));
@@ -90,7 +78,7 @@ public class ProductService implements IProductService {
 	@Override
 	@Transactional
 	public void delete(long[] ids) {
-		for (long id: ids) {
+		for (long id : ids) {
 			productRepository.deleteById(id);
 		}
 	}

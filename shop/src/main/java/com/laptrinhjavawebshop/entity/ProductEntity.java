@@ -25,6 +25,9 @@ public class ProductEntity extends BaseEntity{
 	@Column(name = "price", columnDefinition = "TEXT")
 	private Float price;
    
+	@Column(name = "img")
+	private String codeImg;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
 	//trong bảng New sẽ sinh ra 1 cột là category_id

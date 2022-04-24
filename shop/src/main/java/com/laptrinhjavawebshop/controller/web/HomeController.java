@@ -37,13 +37,13 @@ public class HomeController {
         ModelAndView mav = new ModelAndView("web/contact");
         return mav;
     }
-    //controller Login
+
     @RequestMapping(value = "/dang-nhap", method = RequestMethod.GET)
 	public ModelAndView loginPage() {
 		ModelAndView mav = new ModelAndView("web/login");
 		return mav;
 	}
-    //controller dangky
+
     @RequestMapping(value = "/dang-ky" , method = RequestMethod.GET)
 	public ModelAndView registerAccount(@RequestParam(value = "message" ,required = false) String message, HttpServletRequest request) {
 		 ModelAndView mav = new ModelAndView("web/sign-up");
@@ -56,8 +56,7 @@ public class HomeController {
 //			}
 			return mav;
 	}
-  //viết 1 controller nếu ko phải admin mà muốn truy cập vào admin thì
-  	// sẽ redirect ra trang 'dang-nhap'
+
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
 	public ModelAndView accessDenied() {
 		return new ModelAndView("redirect:/dang-nhap?accessDenied");
@@ -73,7 +72,11 @@ public class HomeController {
     		List<String> roles = SecurityUtils.getAuthorities();
     		if (isAdmin(roles)) {
     			mav = new ModelAndView("/admin/home");
-    		} else if (isUser(roles)) {
+    		} 
+//    		else if (isAdmin1(roles)) {
+//    			
+//    		}
+    		else if (isUser(roles)) {
     			mav = new ModelAndView("/web/home");
     		}
     		return mav;
@@ -85,7 +88,12 @@ public class HomeController {
     		}
     		return false;
     	}
-    	
+//    	private boolean isAdmin1(List<String> roles) {
+//    		if (roles.contains("ADMIN1")) {
+//    			return true;
+//    		}
+//    		return false;
+//    	}
     	private boolean isUser(List<String> roles) {
     		if (roles.contains("USER")) {
     			return true;

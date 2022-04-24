@@ -7,6 +7,7 @@ public class FeedBackDTO extends AbstractDTO<FeedBackDTO> {
 	private String address;
 	private String yourMessager;
 	private Long numberPhone;
+	private Long id_user;
 	
 	
 	
@@ -40,7 +41,10 @@ public class FeedBackDTO extends AbstractDTO<FeedBackDTO> {
 	public void setNumberPhone(Long numberPhone) {
 		this.numberPhone = numberPhone;
 	}
-	
-	
-	
+	public Long getId_user() {
+		return id_user;
+	}
+	public void setId_user(Long id_user) {
+		this.id_user = id_user;
+	}
 }
