@@ -5,6 +5,7 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 	private Long totalNumber;
 	private String shortDescription;
 	private Float price;
+	private String codeImg;
 	private Long categoryId;
 	private String categoryCode;
 	public String getName() {
@@ -42,5 +43,11 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 	}
 	public void setPrice(Float price) {
 		this.price = price;
+	}
+	public String getCodeImg() {
+		return codeImg;
+	}
+	public void setCodeImg(String codeImg) {
+		this.codeImg = codeImg;
 	}
 }

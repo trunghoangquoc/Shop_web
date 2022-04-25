@@ -22,7 +22,21 @@ public class MessageUtil {
 		} else if (message.equals("error_system")) {
 			result.put("message", "Error system");
 			result.put("alert", "danger");
+		}else if(message.equals("createAccout_success")) {
+			result.put("message", "Register Success");
+			result.put("alert", "success");
+		}else if(message.equals("inaccurate_information")) {
+			result.put("message", "Error Inaccurate Information");
+			result.put("alert", "danger");
+		}else if(message.equals("addCart_success")) {
+			result.put("message", "AddCart Success");
+			result.put("alert", "success");
+		}else if(message.equals("orders_success")) {
+			result.put("message", "Orders Success");
+			result.put("alert", "success");
 		}
 		return result;
 	}
+	
+	
 }

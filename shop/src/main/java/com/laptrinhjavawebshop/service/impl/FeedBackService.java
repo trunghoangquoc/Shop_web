@@ -19,31 +19,38 @@ public class FeedBackService implements IFeedBackService {
 
 	@Autowired
 	private FeedBackRepository feedbackRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private FeedBackConverter feedbackConverter;
-	
+
 	@Autowired
 	private SecurityUtils securityUtil;
-	
+
 	@Override
 	public FeedBackDTO save(FeedBackDTO dto) {
-		FeedBackEntity entity = new FeedBackEntity();
-		UserEntity user = new UserEntity();
-		entity = feedbackConverter.toEntity(dto);
 
-		MyUser myUser = (MyUser) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
-		if(myUser.getUsername() != null) {
-			user = userRepository.findOneByUserName(myUser.getUsername());
-			entity.setUser(user);//chính là set Field user_id dưới DB
+		FeedBackEntity feedBackentity = new FeedBackEntity();
+		UserEntity userEntity = new UserEntity();
+		if( !dto.getAddress().isEmpty() && !dto.getEmail().isEmpty() && dto.getNumberPhone() != null) {
+			feedBackentity = feedbackConverter.toEntity(dto);
+			Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(!object.equals("anonymousUser")) {
+				MyUser myUser = (MyUser) object;
+//				MyUser myUser = securityUtil.getPrincipal();
+				if (myUser.getUsername() != null) {
+					userEntity = userRepository.findByUserName(myUser.getUsername());
+					
+					feedBackentity.setUser(userEntity);
+				} 
+			}		
+			return feedbackConverter.toDto(feedbackRepository.save(feedBackentity));
 		}else {
-			entity.setUser(null);
+			return null;
 		}
-	
-		return feedbackConverter.toDto(feedbackRepository.save(entity));
-	}
+		
 
+	}
 }

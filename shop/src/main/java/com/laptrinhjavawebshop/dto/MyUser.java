@@ -5,12 +5,11 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-/*
--Bản thân thằng Spring_Security có sẵn method User (từ import org.springframework.security.core.userdetails.User;)
-method User chỉ có những thông tin chung uresName , password , id.   HẾT!
 
-=> Nếu user có những thông tin thêm như : Email, Sdt,... thì cần Custom lại*/
 public class MyUser extends User {
+
+
+	private static final long serialVersionUID = 1L;
 
 	public MyUser(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
@@ -20,15 +19,10 @@ public class MyUser extends User {
 	
 	private String fullName;
 	private String email;
-	private String status;
+	private Integer status;
+//	private Long id_user;
 	
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 
 	public String getEmail() {
 		return email;
@@ -44,5 +38,21 @@ public class MyUser extends User {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+//	public Long getId_user() {
+//		return id_user;
+//	}
+//
+//	public void setId_user(Long id_user) {
+//		this.id_user = id_user;
+//	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }

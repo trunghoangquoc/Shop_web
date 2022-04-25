@@ -1,10 +1,10 @@
 <%@include file="/common/taglib.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<c:url var="productURL" value="/admin/product/list" />
+<c:url var="userListURL" value="/admin/user/listActive" />
 <c:url var="adminURL" value="/admin/home" />
-<c:url var="productAPI" value="/api/product" />
-<c:url var="productEditURL" value="/admin/product/edit" />
+<c:url var="userEditURL" value="/admin/user/edit" />
+<c:url var="userAPI" value="/api/user" />
 <%@ page import="com.laptrinhjavawebshop.util.SecurityUtils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -154,7 +154,7 @@
 
 		<!-- body -->
 		<div class="main-content">
-			<form action="<c:url value='/admin/product/list'/>" id="formSubmit"
+			<form action="<c:url value='/admin/user/listActive'/>" id="formSubmit"
 				method="get">
 
 				<div class="main-content-inner">
@@ -176,18 +176,18 @@
 									<div class="table-btn-controls">
 										<div class="pull-right tableTools-container">
 											<div class="dt-buttons btn-overlap btn-group">
-												<c:url var="createProduct" value="/admin/product/edit" />
+												<c:url var="createUser" value="/admin/user/edit" />
 												<a flag="info"
 													class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
-													data-toggle="tooltip" title='Thêm Sản Phẩm'
-													href='${createProduct}'> <span> <i
+													data-toggle="tooltip" title='Create User'
+													href='${createUser}'> <span> <i
 														class="fa fa-plus-circle bigger-110 purple"></i>
 												</span>
 												</a>
 												<button id="btnDelete" type="button"
 													onclick="warningBeforeDelete()"
 													class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
-													data-toggle="tooltip" title='Xóa Sản Phẩm'>
+													data-toggle="tooltip" title='Delete User'>
 													<span> <i class="fa fa-trash-o bigger-110 pink"></i>
 													</span>
 												</button>
@@ -202,10 +202,10 @@
 												<thead>
 													<tr>
 														<th><input type="checkbox" id="checkAll"></th>
-														<th>Tên</th>
-														<th>Mô tả ngắn</th>
-														<th>Giá</th>
-														<th>Số Lượng</th>
+														<th>Name</th>
+														<th>Full Name</th>
+														<th>Email</th>
+														<th>Address</th>
 														<th>Thao tác</th>
 													</tr>
 												</thead>
@@ -214,16 +214,16 @@
 														<tr>
 															<td><input type="checkbox" id="checkbox_${item.id}"
 																value="${item.id}"></td>
-															<td>${item.name}</td>
-															<td>${item.shortDescription}</td>
-															<td>${item.price}</td>
-															<td>${item.totalNumber}</td>
-															<td><c:url var="updateProductURL"
-																	value="/admin/product/edit">
+															<td>${item.userName}</td>
+															<td>${item.fullName}</td>
+															<td>${item.email}</td>
+										                    <td>${item.address}</td>
+															<td><c:url var="updateUserURL"
+																	value="/admin/user/edit">
 																	<c:param name="id" value="${item.id}" />
 																</c:url> <a class="btn btn-sm btn-primary btn-edit"
-																data-toggle="tooltip" title="Cập nhật bài viết"
-																href='${updateProductURL}'><i
+																data-toggle="tooltip" title="Update User"
+																href='${updateUserURL}'><i
 																	class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
 															</td>
 														</tr>
@@ -253,7 +253,7 @@
 					startPage : currentPage,
 					onPageClick : function(event, page) {
 						if (currentPage != page) {
-							$('#limit').val(2);
+							$('#limit').val(5);
 							$('#page').val(page);
 							$('#formSubmit').submit();
 						}
@@ -282,20 +282,21 @@
 										}).get();
 								deleteNew(ids);
 							}
+							
 						});
 			}
 			function deleteNew(data) {
 				$
 						.ajax({
-							url : '${productAPI}',
+							url : '${userAPI}',
 							type : 'DELETE',
 							contentType : 'application/json',
 							data : JSON.stringify(data),
 							success : function(result) {
-								window.location.href = "${productURL}?page=1&limit=2&message=delete_success";
+								window.location.href = "${userListURL}?page=1&limit=5&message=delete_success";
 							},
 							error : function(error) {
-								window.location.href = "${productURL}?page=1&limit=2&message=error_system";
+								window.location.href = "${userListURL}?page=1&limit=5&message=error_system";
 							}
 						});
 			}
@@ -328,21 +329,32 @@
 		</a>
 	</div>
 
-	
-		<script src="<c:url value='/template/admin/paging/jquery.twbsPagination.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/bootstrap.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/jquery-ui.custom.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/jquery.ui.touch-punch.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/jquery.easypiechart.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/jquery.sparkline.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/jquery.flot.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/jquery.flot.pie.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/jquery.flot.resize.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/ace-elements.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/paging/jquery.twbsPagination.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/bootstrap.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/jquery-ui.custom.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/jquery.ui.touch-punch.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/jquery.easypiechart.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/jquery.sparkline.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/jquery.flot.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/jquery.flot.pie.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/jquery.flot.resize.min.js' />"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/ace-elements.min.js' />"></script>
 	<script src="<c:url value='/template/admin/assets/js/ace.min.js' />"></script>
-	<script src="<c:url value='/template/admin/assets/js/bootstrap.min.js'/>"></script>
-	
+	<script
+		src="<c:url value='/template/admin/assets/js/bootstrap.min.js'/>"></script>
+
 	<!-- page specific plugin scripts -->
-	<script src="<c:url value='/template/admin/assets/js/jquery-ui.min.js'/>"></script>
+	<script
+		src="<c:url value='/template/admin/assets/js/jquery-ui.min.js'/>"></script>
 </body>
 </html>

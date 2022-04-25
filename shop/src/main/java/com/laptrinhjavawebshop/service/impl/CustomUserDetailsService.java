@@ -20,7 +20,7 @@ import com.laptrinhjavawebshop.repository.UserRepository;
 
 //tất cả thao tác login rồi ktra thì sẽ nhảy vào file confix security.xml
  //rồi mới gọi đến class CustomUserDetailsService
-@Service
+@Service("userDetailsService")
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 	
@@ -30,7 +30,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity userEntity = userRepository.findOneByUserName(username);
+		UserEntity userEntity = new UserEntity();
+		userEntity =	userRepository.findOneByUserNameAndStatus(username, SystemConstant.ACTIVE_STATUS);
 		
 		if (userEntity == null) {
 			throw new UsernameNotFoundException("User not found");
@@ -45,6 +46,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		MyUser myUser = new MyUser(userEntity.getUserName(), userEntity.getPassword(), 
 							true, true, true, true, authorities);
 		myUser.setFullName(userEntity.getFullName());
+		myUser.setEmail(userEntity.getEmail());
+		myUser.setStatus(userEntity.getStatus());
 		return myUser;
 	}
 

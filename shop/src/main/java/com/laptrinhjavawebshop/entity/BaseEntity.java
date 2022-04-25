@@ -76,4 +76,8 @@ public abstract class BaseEntity {
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

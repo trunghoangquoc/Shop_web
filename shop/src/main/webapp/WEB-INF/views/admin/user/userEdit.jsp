@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <%@page session="false" %>
-<c:url var="productURL" value="/admin/product/list"/>
-<c:url var="adminURL" value="/admin/home"/>
-<c:url var="productAPI" value="/api/product"/>
-<c:url var="productEditURL" value="/admin/product/edit"/>
+<c:url var="userListURL" value="/admin/user/listActive" />
+<c:url var="adminURL" value="/admin/home" />
+<c:url var="userEditURL" value="/admin/user/edit" />
+<c:url var="userAPI" value="/api/user" />
 
 <%@ page import="com.laptrinhjavawebshop.util.SecurityUtils" %>
 
