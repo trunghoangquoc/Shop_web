@@ -1,6 +1,7 @@
 package com.laptrinhjavawebshop.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,7 +9,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +22,11 @@ import com.laptrinhjavawebshop.service.impl.CustomUserDetailsService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    @Qualifier("userDetailsService")
     private CustomUserDetailsService userDetailsService;
 
- 
-    AppConfig appConfig = new AppConfig();
+    @Autowired
+    private AppConfig appConfig;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -40,7 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Các trang không yêu cầu login
         http.authorizeRequests().antMatchers("/trang-chu", "/dang-ky", "/dang-nhap" ).permitAll();
-
         // Trang chỉ dành cho ADMIN
         http.authorizeRequests().antMatchers("/admin/home").access("hasRole('ADMIN')");
 //        http.authorizeRequests().antMatchers("/admin/product/*").access("hasRole('PRODUCT,ADMIN')");

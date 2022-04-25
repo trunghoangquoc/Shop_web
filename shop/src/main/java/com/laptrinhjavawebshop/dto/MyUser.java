@@ -19,16 +19,10 @@ public class MyUser extends User {
 	
 	private String fullName;
 	private String email;
-	private String status;
-	private Long id_user;
+	private Integer status;
+//	private Long id_user;
 	
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 
 	public String getEmail() {
 		return email;
@@ -46,11 +40,19 @@ public class MyUser extends User {
 		this.fullName = fullName;
 	}
 
-	public Long getId_user() {
-		return id_user;
+//	public Long getId_user() {
+//		return id_user;
+//	}
+//
+//	public void setId_user(Long id_user) {
+//		this.id_user = id_user;
+//	}
+
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setId_user(Long id_user) {
-		this.id_user = id_user;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }

@@ -244,14 +244,8 @@
 		</div>
 		<!-- /.main-content -->
 		<script>
-			var totalPages = $
-			{
-				model.totalPage
-			};
-			var currentPage = $
-			{
-				model.page
-			};
+			var totalPages = ${model.totalPage};
+			var currentPage = ${model.page};
 			$(function() {
 				window.pagObj = $('#pagination').twbsPagination({
 					totalPages : totalPages,
@@ -334,32 +328,21 @@
 		</a>
 	</div>
 
-	<script
-		src="<c:url value='/template/admin/paging/jquery.twbsPagination.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/bootstrap.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/jquery-ui.custom.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/jquery.ui.touch-punch.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/jquery.easypiechart.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/jquery.sparkline.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/jquery.flot.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/jquery.flot.pie.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/jquery.flot.resize.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/ace-elements.min.js' />"></script>
+	
+		<script src="<c:url value='/template/admin/paging/jquery.twbsPagination.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/bootstrap.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/jquery-ui.custom.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/jquery.ui.touch-punch.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/jquery.easypiechart.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/jquery.sparkline.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/jquery.flot.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/jquery.flot.pie.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/jquery.flot.resize.min.js' />"></script>
+	<script src="<c:url value='/template/admin/assets/js/ace-elements.min.js' />"></script>
 	<script src="<c:url value='/template/admin/assets/js/ace.min.js' />"></script>
-	<script
-		src="<c:url value='/template/admin/assets/js/bootstrap.min.js'/>"></script>
-
+	<script src="<c:url value='/template/admin/assets/js/bootstrap.min.js'/>"></script>
+	
 	<!-- page specific plugin scripts -->
-	<script
-		src="<c:url value='/template/admin/assets/js/jquery-ui.min.js'/>"></script>
+	<script src="<c:url value='/template/admin/assets/js/jquery-ui.min.js'/>"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <c:url var="homeURL" value="/trang-chu" />
 <c:url var="loginURL" value="/dang-nhap" />
 <c:url var="registerURL" value="/dang-ky" />
-<c:url var="userAPI" value="/api/account" />
+<c:url var="registerAPI" value="/api/registerAccount" />
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -15,6 +15,15 @@
 	href="<c:url value='/template/web/css/bootstrap.min.css' /> ">
 <link rel="stylesheet"
 	href="<c:url value='/template/web/css/my_style.css' /> ">
+	
+	<!-- 	trên mang -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script src="<c:url value='/template/web/paging/jquery.twbsPagination.js' />"></script>
+   
 </head>
 
 <body>
@@ -37,18 +46,11 @@
 						<c:url var="homeURL" value="/trang-chu" />
 						<a class="nav-link"
 							href='${homeURL}'>HOME</span></a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Product</a>
-							<div class="dropdown-menu">
-							<c:url var="product" value="/product" />
-								<a class="dropdown-item" href='${product}'>Fresh Fruit</a> <a
-									class="dropdown-item" href='${product}'>Fresh Fruit</a> <a
-									class="dropdown-item" href='${product}'>Fresh Fruit</a> <a
-									class="dropdown-item" href='${product}'>Fresh Fruit</a>
-							</div></li>
-						<li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
-						<li class="nav-item"><a class="nav-link" href="cart.html">CART</a></li>
-
+					<li class="nav-item"><c:url var="product" value="/product" />
+						<a class="nav-link" href='${product}'>PRODUCT</a></li>
+					<li class="nav-item"><c:url var="contactURL" value="/contact" />
+						<a class="nav-link" href='${contactURL}'>CONTACT</a></li>
+					<li class="nav-item"><a class="nav-link" href="cart.html">CART</a></li>
 					</ul>
 					<form class="form-inline my-2 my-lg-0">
 						<input class="form-control mr-sm-2" type="text"
@@ -61,12 +63,7 @@
 							<a href='${loginURL}'> Login </a>
 						</button>
 					</form>
-					<form class="form-inline my-2 my-lg-0 sign-up">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-						<c:url var="registerURL" value="/dang-ky" />
-							<a href='${registerURL}'> Registration</a>
-						</button>
-					</form>
+					
 
 					
 				</div>
@@ -86,38 +83,40 @@
 				<div class="form-group row">
 					<label for="fullname" class="col-sm-2 col-form-label">FullName</label>
 					<div class="col-sm-10">
-						          <input type="text" path="fullName" class="form-control" id="fullname" placeholder="fullname">
-<%-- 						<form:input path="fullName" class="form-control" id="fullname" --%>
-<%-- 							placeholder="fullname" /> --%>
+			        <input type="text" name="fullName" class="form-control" id="fullname" placeholder="fullname" required> 
+						
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="address" class="col-sm-2 col-form-label">Address</label>
+					<div class="col-sm-10">
+						          <input type="text" name="address" class="form-control" id="address" placeholder="address" required> 
+						
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="username" class="col-sm-2 col-form-label">UserName</label>
 					<div class="col-sm-10">
-						          <input type="text" path="userName" class="form-control" id="username" placeholder="username">
-<%-- 						<form:input path="userName" class="form-control" id="username" --%>
-<%-- 							placeholder="username" /> --%>
+						          <input type="text" name="userName" class="form-control" id="username" placeholder="username" required> 
+ 						
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
 					<div class="col-sm-10">
-						          <input type="email" path="email" class="form-control" id="inputEmail3" placeholder="email">
-<%-- 						<form:input path="email" class="form-control" id="inputEmail3" --%>
-<%-- 							placeholder="email" /> --%>
+ 						          <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="email" required> 
+						
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
 					<div class="col-sm-10">
-						          <input type="password" path="passWord" class="form-control" id="inputPassword3" placeholder="password">
-<%-- 						<form:input path="passWord" class="form-control" --%>
-<%-- 							id="inputPassword3" placeholder="password" /> --%>
+						          <input type="password" name="passWord" class="form-control" id="inputPassword3" placeholder="password" required>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-sm-10">
-						<button type="submit" class="btn btn-light" id="btnAddOrUpdateNew">
+						<button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="btnAddOrUpdateNew">
 							SignUp</button>
 					</div>
 				</div>
@@ -169,12 +168,6 @@
 
 
 	<!-- Footer -->
-	<!-- chinh thời gian slide chậy -->
-	<script>
-    $('#carouselExampleIndicators').carousel({
-      interval: 1000 * 3
-    });
-  </script>
 
 	<script>
 	$('#btnAddOrUpdateNew').click(function (e) {
@@ -184,22 +177,20 @@
 	    $.each(formData, function (i, v) {
             data[""+v.name+""] = v.value;
         });
-	    if (true) {
 	    	addAccout(data);
-	    }
-	
+	});
 	function addAccout(data) {
 		$.ajax({
-            url: '${userAPI}',
+            url: '${registerAPI}',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	window.location.href = "${registerURL}?message=insert_success";
+            	window.location.href = "${registerURL}?message=createAccout_success";
             },
             error: function (error) {
-            	window.location.href = "${userAPI}?message=error_system";
+            	window.location.href = "${registerURL}?message=inaccurate_information";
             }
         });
 	}
@@ -209,6 +200,10 @@
 
 	<script src="<c:url value='/template/web/js/jquery.min.js' />"></script>
 	<script src="<c:url value='/template/web/js/bootstrap.min.js' />"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js">
+	</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
 </html>

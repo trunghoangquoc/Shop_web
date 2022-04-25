@@ -205,6 +205,8 @@
 														<th>Name</th>
 														<th>Full Name</th>
 														<th>Email</th>
+														<th>Address</th>
+														<th>Thao tác</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -215,7 +217,7 @@
 															<td>${item.userName}</td>
 															<td>${item.fullName}</td>
 															<td>${item.email}</td>
-										
+										                    <td>${item.address}</td>
 															<td><c:url var="updateUserURL"
 																	value="/admin/user/edit">
 																	<c:param name="id" value="${item.id}" />
@@ -251,7 +253,7 @@
 					startPage : currentPage,
 					onPageClick : function(event, page) {
 						if (currentPage != page) {
-							$('#limit').val(2);
+							$('#limit').val(5);
 							$('#page').val(page);
 							$('#formSubmit').submit();
 						}
@@ -280,6 +282,7 @@
 										}).get();
 								deleteNew(ids);
 							}
+							
 						});
 			}
 			function deleteNew(data) {
@@ -290,10 +293,10 @@
 							contentType : 'application/json',
 							data : JSON.stringify(data),
 							success : function(result) {
-								window.location.href = "${userListURL}?page=1&limit=2&message=delete_success";
+								window.location.href = "${userListURL}?page=1&limit=5&message=delete_success";
 							},
 							error : function(error) {
-								window.location.href = "${userListURL}?page=1&limit=2&message=error_system";
+								window.location.href = "${userListURL}?page=1&limit=5&message=error_system";
 							}
 						});
 			}

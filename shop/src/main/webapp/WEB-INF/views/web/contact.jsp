@@ -89,7 +89,6 @@
 	</nav>
 
 
-
   <!-- banner slide -->
   <div id="banner" class="carousel slide" data-ride="carousel" >
     <img src="<c:url value='/template/image/banner_3.jpg' />" alt="" style="width:100% ;   height: 500px;">
@@ -143,28 +142,28 @@
  </div>
  <!-- form -->
  <div class="container form-contact">
-  <form:form role="form" id="formSubmit" >
+  <form role="form" id="formSubmit" >
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="name">Name</label>
-        <input type="text" name="fullName" class="form-control" id="name" placeholder="name">
+        <input type="text" name="fullName" class="form-control" id="name" placeholder="name" required>
 <%--         <form:input path="fullName" class="form-control" id="name" placeholder="fullname" /> --%>
       </div>
       <div class="form-group col-md-6">
         <label for="inputEmail4">Email</label>
-        <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="email@gmail.com">
+        <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="email@gmail.com" required>
 <%--         <form:input path="email" class="form-control" id="inputEmail4" placeholder="email@gmail.com" /> --%>
       </div>
       
     </div>
     <div class="form-group">
       <label for="inputAddress">Address</label>
-      <input type="text" name="address" class="form-control" id="inputAddress" placeholder="address">
+      <input type="text" name="address" class="form-control" id="inputAddress" placeholder="address" required>
 <%--       <form:input path="address" class="form-control" id="inputAddress" placeholder="address" /> --%>
     </div>
      <div class="form-group">
       <label for="inputNumber">NumberPhone</label>
-      <input type="number" name="numberPhone" class="form-control" id="inputNumber" placeholder="NumberPhone" >
+      <input type="number" name="numberPhone" class="form-control" id="inputNumber" placeholder="NumberPhone" required>
 <%--       <form:input path="numberPhone" class="form-control" id="inputNumber" placeholder="NumberPhone" /> --%>
     </div>
     <div class="form-group">
@@ -173,7 +172,7 @@
     </div>
     <button type="submit" class="btn btn-primary text-center" id="btnSendMessage" >SEND MESSAGER</button>
 
-  </form:form>
+  </form>
  </div>
  <script>
 	$('#btnSendMessage').click(function (e) {
@@ -182,8 +181,9 @@
 	    var formData = $('#formSubmit').serializeArray();
 	    $.each(formData, function (i, v) {
             data[""+v.name+""] = v.value;
-            updateNew(data)
+            
         });
+	    updateNew(data);
 	});
 	
 	function updateNew(data) {
@@ -194,12 +194,12 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	alert('ok');
-//             	window.location.href = "${productEditURL}?id="+result.id+"&message=update_success";
+//             	alert('ok');
+            	window.location.href = "${contactURL}?message=insert_success";
             },
             error: function (error) {
-            	 alert('error');
-//             	window.location.href = "${productEditURL}?id="+result.id+"&message=error_system";
+//             	 alert('error');
+            	window.location.href = "${contactURL}?message=inaccurate_information";
             }
         });
 	}

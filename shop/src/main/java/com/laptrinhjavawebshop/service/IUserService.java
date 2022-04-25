@@ -11,6 +11,8 @@ public interface IUserService {
    UserDTO registerUser (UserDTO userDto);
    int getTotalItem();
    List<UserDTO> findAllActive(Pageable page);
+   List<UserDTO> findAllDelete(Pageable page);
    UserDTO findById(long id);
-   void delete(long[] ids);
+   void deleteUserActive(long[] ids);
+   void deleteUserNoActive(long[] ids);
 }

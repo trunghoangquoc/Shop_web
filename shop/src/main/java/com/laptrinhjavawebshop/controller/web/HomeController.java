@@ -33,9 +33,15 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/contact"}, method = RequestMethod.GET)
-    public ModelAndView homeProduct() {
+    public ModelAndView createContact(@RequestParam(value = "message" ,required = false) String message, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("web/contact");
-        return mav;
+        if (request.getParameter("message") != null) {
+			Map<String, String> message_alert = messageUtil.getMessage(request.getParameter("message"));
+			mav.addObject("message", message_alert.get("message"));
+			mav.addObject("alert", message_alert.get("alert"));
+		}
+		return mav;
+        
     }
 
     @RequestMapping(value = "/dang-nhap", method = RequestMethod.GET)
@@ -49,11 +55,11 @@ public class HomeController {
 		 ModelAndView mav = new ModelAndView("web/sign-up");
 		 
 
-//			if (request.getParameter("message") != null) {
-//				Map<String, String> message_alert = messageUtil.getMessage(request.getParameter("message"));
-//				mav.addObject("message", message_alert.get("message"));
-//				mav.addObject("alert", message_alert.get("alert"));
-//			}
+			if (request.getParameter("message") != null) {
+				Map<String, String> message_alert = messageUtil.getMessage(request.getParameter("message"));
+				mav.addObject("message", message_alert.get("message"));
+				mav.addObject("alert", message_alert.get("alert"));
+			}
 			return mav;
 	}
 

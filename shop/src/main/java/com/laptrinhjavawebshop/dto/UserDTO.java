@@ -7,8 +7,10 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	private Integer status;
 	private String userName;
 	private String email;
+	private String address;
 	private String roleId;
 	private String roleName;
+	private String roleCode;
 	
 	public String getFullName() {
 		return fullName;
@@ -52,6 +54,18 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	}
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getRoleCode() {
+		return roleCode;
+	}
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
 	}
 
 }

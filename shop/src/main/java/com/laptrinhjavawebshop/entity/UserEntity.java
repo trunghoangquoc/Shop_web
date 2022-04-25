@@ -31,6 +31,16 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "email")
 	private String email;
 
+	@Column(name = "address")
+	private String address;
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	@OneToMany(mappedBy = "user")
 	private List<FeedBackEntity> feedback = new ArrayList<>();

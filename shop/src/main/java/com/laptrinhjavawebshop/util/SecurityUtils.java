@@ -13,7 +13,8 @@ import com.laptrinhjavawebshop.dto.MyUser;
 public class SecurityUtils {
 	
 	public static MyUser getPrincipal() {
-		MyUser myUser = (MyUser) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
+		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser myUser = (MyUser) object;
         return myUser;
     }
 	

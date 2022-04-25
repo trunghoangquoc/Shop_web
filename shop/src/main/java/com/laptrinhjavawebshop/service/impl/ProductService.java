@@ -64,9 +64,10 @@ public class ProductService implements IProductService {
 	public ProductDTO save(ProductDTO dto) {
 		CategoryEntity category = categoryRepository.findOneByCode(dto.getCategoryCode());
 		ProductEntity entity = new ProductEntity();
-		Optional<ProductEntity> oldProductEntity = productRepository.findById(dto.getId());
+		Optional<ProductEntity> oldProductEntity ;
 		entity = productConverter.toEntity(dto);
 		if(dto.getId() !=null) {
+			oldProductEntity = productRepository.findById(dto.getId());
 			entity.setId(dto.getId());
 			entity.setCreatedBy(oldProductEntity.get().getCreatedBy());
 			entity.setCreatedDate(oldProductEntity.get().getCreatedDate());

@@ -100,15 +100,33 @@
 					<span class="btn btn-warning"></span> <span class="btn btn-danger"></span>
 				</div>
 			</div>
-			<ul class="nav nav-list">
+		<ul class="nav nav-list">
+			
+                           <!-- 			list product -->
 				<li><a href="#" class="dropdown-toggle"> <i
 						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
 						Product Management <b class="arrow fa fa-angle-down"></b>
 				</a> <b class="arrow"></b>
 					<ul class="submenu">
 						<li><a
-							href="<c:url value='/admin/product/list?page=1&limit=2'/>">
-								<i class="menu-icon fa fa-caret-right"></i>List Product
+							href="<c:url value='/admin/product/list?page=1&limit=2'/>"> <i
+								class="menu-icon fa fa-caret-right"></i>List Product
+						</a> <b class="arrow"></b></li>
+					</ul></li>
+					
+                       <!-- 				    List user -->
+				<li><a href="#" class="dropdown-toggle"> <i
+						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
+						User Management <b class="arrow fa fa-angle-down"></b>
+				</a> <b class="arrow"></b>
+					<ul class="submenu">
+						<li><a
+							href="<c:url value='/admin/user/listActive?page=1&limit=5'/>"> <i
+								class="menu-icon fa fa-caret-right"></i>List User Active
+						</a> <b class="arrow"></b></li>
+						<li><a
+							href="<c:url value='/admin/user/listDelete?page=1&limit=5'/>"> <i
+								class="menu-icon fa fa-caret-right"></i>List User Delete
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 			</ul>

@@ -27,7 +27,7 @@ public class UserController {
 	private MessageUtil messageUtil;
 
 	@RequestMapping(value = "/admin/user/listActive", method = RequestMethod.GET)
-	public ModelAndView productList(@RequestParam("page") int page, @RequestParam("limit") int limit,
+	public ModelAndView userListActive(@RequestParam("page") int page, @RequestParam("limit") int limit,
 			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,
 			HttpServletRequest request) {
 
@@ -60,7 +60,40 @@ public class UserController {
 		return mav;
 
 	}
+	@RequestMapping(value = "/admin/user/listDelete", method = RequestMethod.GET)
+	public ModelAndView userListDelete(@RequestParam("page") int page, @RequestParam("limit") int limit,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,
+			HttpServletRequest request) {
 
+		ModelAndView mav = new ModelAndView("admin/user/userListDelete");
+		// truyền vào page và limit
+		UserDTO model = new UserDTO();
+		model.setPage(page);
+		model.setLimit(limit);
+
+		// xử lý offset và limit
+
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("id").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("id").descending();
+		}
+		Pageable pageable = PageRequest.of(page - 1, limit, sortable);
+
+		model.setListResult(userService.findAllDelete(pageable));
+		model.setTotalItem(userService.getTotalItem());
+		model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getLimit()));
+		if (request.getParameter("message") != null) {
+			Map<String, String> message = messageUtil.getMessage(request.getParameter("message"));
+			mav.addObject("message", message.get("message"));
+			mav.addObject("alert", message.get("alert"));
+		}
+		mav.addObject("model", model);
+		return mav;
+
+	}
 //	
 	@RequestMapping(value = "/admin/user/edit", method = RequestMethod.GET)
 	public ModelAndView productEdit(@RequestParam(value = "id", required = false) Long id, HttpServletRequest request) {
