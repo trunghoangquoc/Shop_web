@@ -20,9 +20,10 @@ import com.laptrinhjavawebshop.repository.UserRepository;
 
 //tất cả thao tác login rồi ktra thì sẽ nhảy vào file confix security.xml
  //rồi mới gọi đến class CustomUserDetailsService
-@Service("userDetailsService")
+@Service
 @Transactional
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceIml implements UserDetailsService{
+
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -50,5 +51,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		myUser.setStatus(userEntity.getStatus());
 		return myUser;
 	}
+
+
 
 }

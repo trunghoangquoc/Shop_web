@@ -7,6 +7,8 @@
 <c:url var="loginURL" value="/dang-nhap" />
 <c:url var="registerURL" value="/dang-ky" />
 <c:url var="contactURL" value="/contact" />
+<c:url var="productDetails" value="/productDetails" />
+<c:url var="addProductCart" value="/api/cart" />
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -17,77 +19,27 @@
 	href="<c:url value='/template/web/css/bootstrap.min.css' /> ">
 <link rel="stylesheet"
 	href="<c:url value='/template/web/css/my_style.css' /> ">
-	
+
 <!-- 	trên mang -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="<c:url value='/template/web/paging/jquery.twbsPagination.js' />"></script>
-    
- 
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
 </head>
 
 <body>
-	<!-- nav -->
-	<nav class="navbar sticky-top navbar-expand-sm navbar-light  "
-		style="background-color: #f0ecdd;" style="color: aqua ;">
-		<div class="container">
-			<c:url var="homeURL" value="/trang-chu" />
-			<a class="navbar-brand" href='${homeURL}'> <img
-				src="<c:url value='/template/image/home.png' />" alt=""
-				style="width: 40px;">
-			</a>
-			<button class="navbar-toggler d-lg-none" type="button"
-				data-toggle="collapse" data-target="#mainmenu" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="mainmenu">
-				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-					<li class="nav-item active"><c:url var="homeURL"
-							value="/trang-chu" /> <a class="nav-link" href='${homeURL}'>HOME</span></a></li>
 
-					<li class="nav-item"><c:url var="product" value="/product" />
-						<a class="nav-link" href='${product}'>PRODUCT</a></li>
-					<li class="nav-item"><c:url var="contactURL" value="/contact" />
-						<a class="nav-link" href='${contactURL}'>CONTACT</a></li>
-					<li class="nav-item"><a class="nav-link" href="cart.html">CART</a></li>
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="text"
-						placeholder="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				</form>
-				<security:authorize access="isAnonymous()">
-					<form class="form-inline login">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-						<a href="<c:url value='/dang-nhap'/>" style="text-decoration: none;">Login</a>
-					</button>
-					</form>
-					<form class="form-inline ">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-						<a href="<c:url value='/dang-ky'/>" style="text-decoration: none;">Registration</a>
-					</button>
-					</form>
-				</security:authorize>
-				<security:authorize access="isAuthenticated()">
-					<form class="form-inline my-2 my-lg-0 login">
-						<button class="button1 btn-outline-success login" type="submit">
-							<a href='#' style="color: black; text-decoration: none;" >
-								Hello, <%=SecurityUtils.getPrincipal().getFullName()%></a>
-						</button>
-					</form>
-					<button class="btn btn-outline-success" type="button">
-						<c:url var="logout" value="/logoutSuccessful" />
-						<a href='${logout}' style="text-decoration: none;color: black; "> Logout </a>
-					</button>
-				</security:authorize>
-
-			</div>
-		</div>
-	</nav>
+	<!-- header -->
+	<%@ include file="/common/web/header.jsp"%>
+	<!-- header -->
 
 	<!-- banner slide -->
 	<div id="carouselExampleIndicators" class="carousel slide"
@@ -130,252 +82,47 @@
 				class="sr-only">Next</span>
 		</button>
 	</div>
+	<!-- banner slide -->
 
+	<!-- luoi product -->
 
-	<!-- chia luoi 1-->
-	<div class="container ">
-		<div class="hot">
+	<div class="container" style="margin-top: 20px; margin-bottom: 20px;">
+	<div class="hot">
 			<h2 class="mb-5">
 				Sản Phẩm Mới Nhất <img
 					src="<c:url value='/template/image/sanpanhot.png' /> " alt="">
 			</h2>
 		</div>
-
-		<div class="row grid">
-			<div class="col-md-3 col-sm-6 feature">
-				<div class="card text-center">
-					<img class="card-img-top"
-						src="<c:url value='/template/image/feature-2.jpg' /> " alt="">
-					<div class="card-body card-body_1">
-						<p class="card-text">
-
-							<a data-toggle="modal" data-target="#modelId_1"
-								class="btn btn-sm btn-info">Chi tiết</a> <a href="#"
-								class="btn btn-sm btn-success">Add Cart</a>
-						</p>
+		<form action="<c:url value='/trang-chu'/>" id="formSubmit"
+			method="get">
+			<div class="row">
+				<c:forEach var="item" items="${model.listResult}">
+					<div class="col-md-3 col-sm-6">
+						<div class="card text-center" style="margin-bottom: 20px;">
+							 <input type="hidden" value="${item.id}" id="product_${item.id}"/>
+							<img class="card-img-top" style = "height : 190px;  " src="${item.codeImg}" alt="">
+							<div class="card-body">
+								<h6 class="card-title">${item.name}</h6>
+								<p class="card-text">
+								<h6>Giá: <fmt:formatNumber type="currency" currencySymbol="" maxFractionDigits="0" value = "${item.price}"></fmt:formatNumber>VND</h6>
+								<c:url var="productDetails" value="/productDetails">
+									<c:param name="id" value="${item.id}" />
+								</c:url>
+								<a class="btn btn-sm btn-info" href ='${productDetails}'>Chi tiết</a> 
+								<button id="btnAdd" type="button" class="btn btn-sm btn-success" onclick="addToCart(${item.id})">	
+                            		Add Cart
+							   </button>
+							
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 feature">
-				<div class="card text-center">
-					<img class="card-img-top"
-						src="<c:url value='/template/image/feature-3.jpg' />  " alt="">
-					<div class="card-body card-body_1">
-						<p class="card-text">
+				</c:forEach>
 
-							<a data-toggle="modal" data-target="#modelId_2"
-								class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-								class="btn btn-sm btn-success">Add Cart</a>
-						</p>
-					</div>
-				</div>
 			</div>
-			<div class="col-md-3 col-sm-6 feature">
-				<div class="card text-center">
-					<img class="card-img-top"
-						src="<c:url value='/template/image/feature-4.jpg' />" alt="">
-					<div class="card-body card-body_1">
-						<p class="card-text">
-
-							<a data-toggle="modal" data-target="#modelId_3"
-								class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-								class="btn btn-sm btn-success">Add Cart</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 feature">
-				<div class="card text-center">
-					<img class="card-img-top"
-						src="<c:url value='/template/image/feature-7.jpg' /> " alt="">
-					<div class="card-body card-body_1">
-						<p class="card-text">
-
-							<a data-toggle="modal" data-target="#modelId_4"
-								class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-								class="btn btn-sm btn-success">Add Cart</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row grid">
-			<div class="col-md-3 col-sm-6 feature">
-				<div class="card text-center">
-					<img class="card-img-top"
-						src="<c:url value='/template/image/feature-2.jpg' /> " alt="">
-					<div class="card-body card-body_1">
-						<p class="card-text">
-
-							<a data-toggle="modal" data-target="#modelId_1"
-								class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-								class="btn btn-sm btn-success">Add Cart</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 feature">
-				<div class="card text-center">
-					<img class="card-img-top"
-						src="<c:url value='/template/image/feature-3.jpg' /> " alt="">
-					<div class="card-body card-body_1">
-						<p class="card-text">
-
-							<a data-toggle="modal" data-target="#modelId_2"
-								class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-								class="btn btn-sm btn-success">Add Cart</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 feature">
-				<div class="card text-center">
-					<img class="card-img-top"
-						src="<c:url value='/template/image/feature-4.jpg ' /> " alt="">
-					<div class="card-body card-body_1">
-						<p class="card-text">
-
-							<a data-toggle="modal" data-target="#modelId_3"
-								class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-								class="btn btn-sm btn-success">Add Cart</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 feature">
-				<div class="card text-center">
-					<img class="card-img-top"
-						src="<c:url value='/template/image/feature-7.jpg' /> " alt="">
-					<div class="card-body card-body_1">
-						<p class="card-text">
-
-							<a data-toggle="modal" data-target="#modelId_4"
-								class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-								class="btn btn-sm btn-success">Add Cart</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
+		</form>
 	</div>
-	<!-- banner giua -->
-	<div class="container">
-		<div class="row banner_giua">
-			<div class="col-md-6 col-sm-12">
-				<img src="<c:url value='/template/image/bannergiua_1.jpg' /> "
-					alt="">
-			</div>
-			<div class="col-md-6 col-sm-12">
-				<img src="<c:url value='/template/image/bannergiua_2).jpg' /> "
-					alt="">
-			</div>
-		</div>
-	</div>
-	<!-- luoi 2 -->
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4 col-sm-6 title">
-				<h4>Latest Products</h4>
-			</div>
-			<div class="col-md-4 col-sm-6 title">
-				<h4>Top Rated Products</h4>
-			</div>
 
-			<div class="col-md-4 col-sm-6 title">
-				<h4>Review Products</h4>
-			</div>
-			<div class="col-md-4 col-sm-6 ">
-				<img src="<c:url value='/template/image/lp-1.jpg' /> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_5"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-			<div class="col-md-4 col-sm-6 ">
-				<img src="<c:url value='/template/image/lp-1.jpg' /> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_5"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-			<div class="col-md-4 col-sm-6 ">
-				<img src="<c:url value='/template/image/lp-1.jpg' /> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_5"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-			<div class="col-md-4 col-sm-6 " style="margin: 10px 0;">
-				<img src="<c:url value='/template/image/lp-2.jpg' /> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_6"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-			<div class="col-md-4 col-sm-6 " style="margin: 10px 0;">
-				<img src="<c:url value='/template/image/lp-2.jpg '/> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_6"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-			<div class="col-md-4 col-sm-6 " style="margin: 10px 0;">
-				<img src="<c:url value='/template/image/lp-2.jpg' /> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_6"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-			<div class="col-md-4 col-sm-6 ">
-				<img src="<c:url value='/template/image/lp-1.jpg '/> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_5"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-			<div class="col-md-4 col-sm-6 ">
-				<img src="<c:url value='/template/image/lp-1.jpg' /> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_5"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-			<div class="col-md-4 col-sm-6 ">
-				<img src="<c:url value='/template/image/lp-1.jpg '/> " alt="">
-				<div class="chi_tiet">
-
-					<a data-toggle="modal" data-target="#modelId_5"
-						class="btn btn-sm btn-info">Chi Tiết</a> <a href="cart.html"
-						class="btn btn-sm btn-success">Add Cart</a>
-				</div>
-
-			</div>
-		</div>
-	</div>
+   
 	<!-- form the bolg -->
 	<div class="container">
 		<div class="Feature-Product">
@@ -427,262 +174,43 @@
 		</div>
 	</div>
 
-	<!-- modal 1-->
-
-	<div class="modal fade" id="modelId_1" tabindex="-1" role="dialog"
-		aria-labelledby="modelTitleId" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Chi Tiết Sản Phẩm</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-5">
-							<img src="<c:url value='/template/image/feature-2.jpg ' /> "
-								alt="" class="w-100">
-						</div>
-						<div class="col-md-7">
-							<h2>Frush Fruit</h2>
-
-							<p class="card-text">Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Quidem, rerum error. Sequi aliquid quidem
-								voluptates doloribus tempora. Quasi repudiandae ad pariatur
-								repellendus quis dignissimos nemo aut autem fuga. Id, ipsa.</p>
-							<a href="cart.html" class="btn btn-sm btn-success">Add Cart</a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- modal2 -->
-
-	<div class="modal fade" id="modelId_2" tabindex="-1" role="dialog"
-		aria-labelledby="modelTitleId" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-5">
-							<img src="<c:url value='/template/image/feature-3.jpg' /> "
-								alt="" class="w-100">
-						</div>
-						<div class="col-md-7">
-							<h2>Fresh Fruit</h2>
-
-							<p class="card-text">Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Quidem, rerum error. Sequi aliquid quidem
-								voluptates doloribus tempora. Quasi repudiandae ad pariatur
-								repellendus quis dignissimos nemo aut autem fuga. Id, ipsa.</p>
-							<a href="cart.html" class="btn btn-sm btn-success">Add Cart</a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- modal3 -->
-	<div class="modal fade" id="modelId_3" tabindex="-1" role="dialog"
-		aria-labelledby="modelTitleId" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Chi Tiết Sản Phẩm</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-5">
-							<img src="<c:url value='/template/image/feature-4.jpg' /> "
-								alt="" class="w-100">
-						</div>
-						<div class="col-md-7">
-							<h2>Fresh Fruit</h2>
-
-							<p class="card-text">Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Quidem, rerum error. Sequi aliquid quidem
-								voluptates doloribus tempora. Quasi repudiandae ad pariatur
-								repellendus quis dignissimos nemo aut autem fuga. Id, ipsa.</p>
-							<a href="cart.html" class="btn btn-sm btn-success">Add Cart</a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- modal4 -->
-	<div class="modal fade" id="modelId_4" tabindex="-1" role="dialog"
-		aria-labelledby="modelTitleId" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Chi Tiết Sản Phẩm</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-5">
-							<img src="<c:url value='/template/image/feature-7.jpg' /> "
-								alt="" class="w-100">
-						</div>
-						<div class="col-md-7">
-							<h2>Fresh Fruit</h2>
-
-							<p class="card-text">Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Quidem, rerum error. Sequi aliquid quidem
-								voluptates doloribus tempora. Quasi repudiandae ad pariatur
-								repellendus quis dignissimos nemo aut autem fuga. Id, ipsa.</p>
-							<a href="cart.html" class="btn btn-sm btn-success">Add Cart</a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- modal 5 -->
-
-	<div class="modal fade" id="modelId_5" tabindex="-1" role="dialog"
-		aria-labelledby="modelTitleId" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Chi Tiết Sản Phẩm</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-4">
-							<img src="<c:url value='/template/image/lp-1.jpg' /> " alt=""
-								class="w-100">
-						</div>
-						<div class="col-md-8">
-							<h2>Fresh Vegetable</h2>
-
-							<p class="card-text">Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Quidem, rerum error. Sequi aliquid quidem
-								voluptates doloribus tempora. Quasi repudiandae ad pariatur
-								repellendus quis dignissimos nemo aut autem fuga. Id, ipsa.</p>
-							<a href="cart.html" class="btn btn-sm btn-success">Add Cart</a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- modal 6 -->
-	<div class="modal fade" id="modelId_6" tabindex="-1" role="dialog"
-		aria-labelledby="modelTitleId" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Chi Tiết Sản Phẩm</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-4">
-							<img src="<c:url value='/template/image/lp-2.jpg' /> " alt=""
-								class="w-100">
-						</div>
-						<div class="col-md-8">
-							<h2>Fresh Vegetable</h2>
-							<p class="card-text">Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Quidem, rerum error. Sequi aliquid quidem
-								voluptates doloribus tempora. Quasi repudiandae ad pariatur
-								repellendus quis dignissimos nemo aut autem fuga. Id, ipsa.</p>
-							<a href="cart.jsp" class="btn btn-sm btn-success">Add Cart</a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
+	
 	<!-- footer -->
-	<footer class="footer  text-black-50 py-5 footer-style">
-		<div class="container footer-style">
-			<div class="row">
-				<div class="col-md-4">
-					<img src="<c:url value='/template/image/logo.png' /> " alt="">
-					<ul class="info">
-						<li>Address :238 ,Hoang Quoc Viet</li>
-						<li>Phone :+0123456789</li>
-						<li>Email : bkap@gmail.com</li>
-					</ul>
-				</div>
-				<div class="col-md-2 useful-link ">
-					<h5>Useful Link</h5>
-					<ul>
-						<li><a href="">Trang chủ</a></li>
-						<li><a href="">Giới thiệu</a></li>
-						<li><a href="">Đối Tác</a></li>
-						<li><a href="">Liên hệ</a></li>
-					</ul>
-				</div>
-				<div class="col-md-6">
-					<iframe
-						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59587.97785449821!2d105.80194400550647!3d21.02273601626801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9bd9861ca1%3A0xe7887f7b72ca17a9!2zSMOgIE7hu5lpLCBIb8OgbiBLaeG6v20sIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1645101482752!5m2!1svi!2s"
-						style="border: 0; width: 100%; height: 200px;" allowfullscreen=""
-						loading="lazy"></iframe>
-				</div>
-			</div>
-		</div>
+	<%@ include file="/common/web/footer.jsp"%>
+	<!-- footer -->
 
-	</footer>
-
-	<!-- Copyright -->
-	<div class="footer-copyright text-center py-3"
-		style="background-color: darkmagenta;">
-		Â©238_HoangQuocViet: <a href="https://mdbootstrap.com/">
-			BkAptech.com</a>
-	</div>
-	<!-- Copyright -->
-
-
-
-	<!-- Footer -->
-	<!-- chá»nh sá»­a thá»i gian slide cháº¡y -->
+   <script>
+	
+	
+   function addToCart(data){
+//		alert(data);
+		$.ajax({
+			url : '${addProductCart}',
+			type : 'POST',
+			contentType : 'application/json',
+			data : JSON.stringify(data),
+			dataType : 'json',
+			success : function(result) {
+				alert("SUCCESS : Thêm Thành Công !");
+			},
+			error : function(error) {
+				alert("ERROR : Vui Lòng Thêm Lại !");
+			}
+		});
+	}
+</script>
 
 	<script src="<c:url value='/template/web/js/jquery.min.js' />"></script>
 	<script src="<c:url value='/template/web/js/bootstrap.min.js' /> "></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js">
+		
 	</script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
+<script
+	src="<c:url value='/template/web/paging/jquery.twbsPagination.js' />"></script>
 
 </body>
 

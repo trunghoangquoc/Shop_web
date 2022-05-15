@@ -10,7 +10,7 @@
 
 <html>
 <head>
-<title>Product Edit</title>
+<title>User Edit</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="<c:url value='/template/admin/assets/css/bootstrap.min.css' />" />
     <link rel="stylesheet" href="<c:url value='/template/admin/font-awesome/4.5.0/css/font-awesome.min.css' />" />
@@ -30,7 +30,8 @@
 
 </head>
 <body class="no-skin">
-		<!-- header -->
+
+	<!-- header -->
 	<div id="navbar" class="navbar navbar-default          ace-save-state  navedit">
     <div class="navbar-container ace-save-state" id="navbar-container">
         <div class="navbar-header pull-left">
@@ -58,7 +59,6 @@
         </div>
     </div>
 </div>
-	<!-- Menu -->
 
 	<div class="main-container" id="main-container">
 		<script type="text/javascript">
@@ -67,79 +67,12 @@
 			} catch (e) {
 			}
 		</script>
-		<!-- header -->
-		<div id="sidebar"
-			class="sidebar                  responsive                    ace-save-state">
-			<script type="text/javascript">
-				try {
-					ace.settings.loadState('sidebar')
-				} catch (e) {
-				}
-			</script>
-			<div class="sidebar-shortcuts">
-				<div class="sidebar-shortcuts-large">
-					<button class="btn btn-success">
-						<i class="ace-icon fa fa-signal"></i>
-					</button>
-
-					<button class="btn btn-info">
-						<i class="ace-icon fa fa-pencil"></i>
-					</button>
-
-					<button class="btn btn-warning">
-						<i class="ace-icon fa fa-users"></i>
-					</button>
-
-					<button class="btn btn-danger">
-						<i class="ace-icon fa fa-cogs"></i>
-					</button>
-				</div>
-				<div class="sidebar-shortcuts-mini">
-					<span class="btn btn-success"></span> <span class="btn btn-info"></span>
-
-					<span class="btn btn-warning"></span> <span class="btn btn-danger"></span>
-				</div>
-			</div>
-		<ul class="nav nav-list">
-			
-                           <!-- 			list product -->
-				<li><a href="#" class="dropdown-toggle"> <i
-						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
-						Product Management <b class="arrow fa fa-angle-down"></b>
-				</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li><a
-							href="<c:url value='/admin/product/list?page=1&limit=2'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List Product
-						</a> <b class="arrow"></b></li>
-					</ul></li>
-					
-                       <!-- 				    List user -->
-				<li><a href="#" class="dropdown-toggle"> <i
-						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
-						User Management <b class="arrow fa fa-angle-down"></b>
-				</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li><a
-							href="<c:url value='/admin/user/listActive?page=1&limit=5'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List User Active
-						</a> <b class="arrow"></b></li>
-						<li><a
-							href="<c:url value='/admin/user/listDelete?page=1&limit=5'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List User Delete
-						</a> <b class="arrow"></b></li>
-					</ul></li>
-			</ul>
-			<div class="sidebar-toggle sidebar-collapse">
-				<i class="ace-icon fa fa-angle-double-left ace-save-state"
-					data-icon1="ace-icon fa fa-angle-double-left"
-					data-icon2="ace-icon fa fa-angle-double-right"></i>
-			</div>
-		</div>
-	
-		<!-- Menu -->
 		
-		<!-- body -->
+		<!-- menu -->
+    	<%@ include file="/common/admin/menu.jsp" %>
+	    <!-- menu -->
+	    
+<!-- body -->
 <div class="main-content">
 	<div class="main-content-inner">
 		<div class="breadcrumbs" id="breadcrumbs">
@@ -151,7 +84,7 @@
 			</script>
 
 			<ul class="breadcrumb">
-				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="<c:url value='/admin/product/list?page=1&limit=2'/>">Home</a>
+				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="<c:url value='/admin/user/listActive'/>">Home</a>
 				</li>
 
 				<li><a href="#">Forms</a></li>
@@ -169,51 +102,72 @@
 					</c:if>
 					<form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model">
 						<div class="form-group">
-							  <label for="categoryCode" class="col-sm-3 control-label no-padding-right">Thể loại:</label>
+							  <label for="roleCode" class="col-sm-3 control-label no-padding-right">Role:</label>
 							  <div class="col-sm-9">
-							  	 <form:select path="categoryCode" id="categoryCode">
-							  	 	<form:option value="" label="-- Chọn thể loại --"/>
-							  	 	<form:options items="${categories}"/>
+							  	 <form:select path="roleCode" id="roleCode">
+							  	 	<form:option value="" label="-- Role --"/>
+							  	 	<form:options items="${roles}"/>
 							  	 </form:select>
 							  </div>
 						</div>
 						<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Tên Sản Phẩm</label>
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Name</label>
 								<div class="col-sm-9">
-									<form:input path="name" cssClass="col-xs-10 col-sm-5" id="name" />
+									<form:input path="userName" cssClass="col-xs-10 col-sm-5" id="userName" />
 								</div>
 						</div>
+					
 						<div class="form-group">
-						  	<label for="shortDescription" class="col-sm-3 control-label no-padding-right">Mô tả ngắn:</label>
+						  	<label for="content" class="col-sm-3 control-label no-padding-right">Full Name:</label>
 						  	<div class="col-sm-9">
-						  		<form:textarea path="shortDescription" rows="5" cols="10" cssClass="form-control" id="shortDescription"/>
+						  		<form:input path="fullName"  cssClass="form-control" id="fullName"/>
 						  	</div>
 						</div>
 						<div class="form-group">
-						  	<label for="content" class="col-sm-3 control-label no-padding-right">Giá:</label>
+						  	<label for="content" class="col-sm-3 control-label no-padding-right">Email:</label>
 						  	<div class="col-sm-9">
-						  		<form:input path="price"  cssClass="form-control" id="price"/>
+						  		<form:input path="email"  cssClass="form-control" id="email"/>
 						  	</div>
 						</div>
 						<div class="form-group">
-						  	<label for="content" class="col-sm-3 control-label no-padding-right">Số Lượng:</label>
+						  	<label for="content" class="col-sm-3 control-label no-padding-right">Status:</label>
 						  	<div class="col-sm-9">
-						  		<form:input path="totalNumber"  cssClass="form-control" id="totalNumber"/>
+						  		<form:input path="status"  cssClass="form-control" id="status"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="content" class="col-sm-3 control-label no-padding-right">Address:</label>
+						  	<div class="col-sm-9">
+						  		<form:input path="address"  cssClass="form-control" id="address"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="content" class="col-sm-3 control-label no-padding-right">Phone Number:</label>
+						  	<div class="col-sm-9">
+						  		<form:input path="phoneNumber"  cssClass="form-control" id="phoneNumber"/>
 						  	</div>
 						</div>
 						<form:hidden path="id" id="newId"/>
+						<c:if test="${empty model.id}">
+						     <div class="form-group">
+						  	    <label for="content" class="col-sm-3 control-label no-padding-right">PassWord :</label>
+						       	<div class="col-sm-9">
+						  		   <form:input path="passWord"  cssClass="form-control" id="passWord"/>
+						  	    </div>
+						      </div>		
+						</c:if>
 						<div class="clearfix form-actions">
 							<div class="col-md-offset-3 col-md-9">
 											<c:if test="${not empty model.id}">
 												<button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
 													<i class="ace-icon fa fa-check bigger-110"></i>
-													Cập nhật Sản Phẩm
+													Update User
 												</button>
 											</c:if>
 											<c:if test="${empty model.id}">
 												<button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
 													<i class="ace-icon fa fa-check bigger-110"></i>
-													Thêm Sản Phẩm
+													Create User
 												</button>
 											</c:if>
 
@@ -241,63 +195,50 @@
         });
 	    var id = $('#newId').val();
 	    if (id == "") {
-	    	addNew(data);
+	    	addUser(data);
 	    } else {
-	    	updateNew(data);
+	    	updateUser(data);
 	    }
 	});
 	
-	function addNew(data) {
+	function addUser(data) {
 		$.ajax({
-            url: '${productAPI}',
+            url: '${userAPI}',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	window.location.href = "${productEditURL}?id="+result.id+"&message=insert_success";
+            	window.location.href = "${userEditURL}?id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-            	window.location.href = "${productURL}?page=1&limit=2&message=error_system";
+            	window.location.href = "${userEditURL}?page=1&limit=2&message=error_system";
             }
         });
 	}
 	
-	function updateNew(data) {
+	function updateUser(data) {
 		$.ajax({
-            url: '${productAPI}',
+            url: '${userAPI}',
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	window.location.href = "${productEditURL}?id="+result.id+"&message=update_success";
+            	window.location.href = "${userEditURL}?id="+result.id+"&message=update_success";
             },
             error: function (error) {
-            	window.location.href = "${productEditURL}?id="+result.id+"&message=error_system";
+            	window.location.href = "${userEditURL}?id="+result.id+"&message=error_system";
             }
         });
 	}
 </script>
      <!-- body -->
      
-  <!-- footer -->
-		<div class="footer">
-			<div class="footer-inner">
-				<div class="footer-content">
-					<span class="bigger-120"> <span class="blue bolder">Â©238_HoangQuocViet: BkAptech.com</span>
-					</span> &nbsp; &nbsp; <span class="action-buttons"> <a href="#">
-							<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-					</a> <a href="#"> <i
-							class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-					</a> <a href="#"> <i
-							class="ace-icon fa fa-rss-square orange bigger-150"></i>
-					</a>
-					</span>
-				</div>
-			</div>
-		</div>
-		<!-- footer -->
+ 	  <!-- footer -->
+    	<%@ include file="/common/admin/footer.jsp" %>
+    	<!-- footer -->
+    	
 		
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse display">
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>

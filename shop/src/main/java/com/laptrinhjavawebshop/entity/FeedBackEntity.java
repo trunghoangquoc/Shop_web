@@ -21,7 +21,7 @@ public class FeedBackEntity extends BaseEntity {
 	private String email;
 	
 	@Column(name = "numberphone")
-	private Long numberPhone;
+	private String numberPhone;
 	
 	@Column(name = "yourmessager", columnDefinition = "TEXT")
 	private String yourMessager;
@@ -62,12 +62,12 @@ public class FeedBackEntity extends BaseEntity {
 	}
 
 
-	public Long getNumberPhone() {
+	public String getNumberPhone() {
 		return numberPhone;
 	}
 
 
-	public void setNumberPhone(Long numberPhone) {
+	public void setNumberPhone(String numberPhone) {
 		this.numberPhone = numberPhone;
 	}
 

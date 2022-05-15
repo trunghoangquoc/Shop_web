@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laptrinhjavawebshop.dto.ProductDTO;
+import com.laptrinhjavawebshop.dto.UserDTO;
 import com.laptrinhjavawebshop.service.IUserService;
 
 @RestController(value = "userAPIOfAdmin")
@@ -17,13 +18,13 @@ public class UserAPI {
 	private IUserService userService;
 	
 	@PostMapping("/api/user") 
-	public ProductDTO createUser(@RequestBody ProductDTO dto) {
-		return null;
+	public UserDTO createUser(@RequestBody UserDTO dto) {
+		return userService.save(dto);
 	}
 	
 	@PutMapping("/api/user") 
-	public ProductDTO updateUser(@RequestBody ProductDTO dto) {
-		return null;
+	public UserDTO updateUser(@RequestBody UserDTO dto) {
+		return userService.save(dto);
 	}
 	
 	@DeleteMapping("/api/user")

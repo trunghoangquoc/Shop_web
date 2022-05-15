@@ -37,34 +37,11 @@
 	href="<c:url value='/template/admin/sweetalert/sweetalert2.min.css' />" />
 </head>
 <body class="no-skin">
+	
 	<!-- header -->
-	<div id="navbar" class="navbar navbar-default          ace-save-state">
-		<div class="navbar-container ace-save-state" id="navbar-container">
-			<div class="navbar-header pull-left">
-				<a href="#" class="navbar-brand"> <small> <i
-						class="fa fa-leaf"></i> Trang quản trị
-				</small>
-				</a>
-			</div>
-			<div
-				class="navbar-buttons navbar-header pull-right collapse navbar-collapse"
-				role="navigation">
-				<ul class="nav ace-nav">
-					<li class="light-blue dropdown-modal"><a
-						data-toggle="dropdown" href="#" class="dropdown-toggle"> Xin
-							chào,                         <%=SecurityUtils.getPrincipal().getFullName()%>
-					</a>
-					<li class="light-blue dropdown-modal"><a
-						href='<c:url value='/logoutSuccessful'/>'> <i
-							class="ace-icon fa fa-power-off"></i> Thoát
-					</a></li>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- header -->
-
+    <%@ include file="/common/admin/header.jsp" %>
+    <!-- header -->
+	
 	<div class="main-container" id="main-container">
 		<script type="text/javascript">
 			try {
@@ -72,76 +49,11 @@
 			} catch (e) {
 			}
 		</script>
-		<!-- header -->
-		<div id="sidebar"
-			class="sidebar                  responsive                    ace-save-state">
-			<script type="text/javascript">
-				try {
-					ace.settings.loadState('sidebar')
-				} catch (e) {
-				}
-			</script>
-			<div class="sidebar-shortcuts">
-				<div class="sidebar-shortcuts-large">
-					<button class="btn btn-success">
-						<i class="ace-icon fa fa-signal"></i>
-					</button>
-
-					<button class="btn btn-info">
-						<i class="ace-icon fa fa-pencil"></i>
-					</button>
-
-					<button class="btn btn-warning">
-						<i class="ace-icon fa fa-users"></i>
-					</button>
-
-					<button class="btn btn-danger">
-						<i class="ace-icon fa fa-cogs"></i>
-					</button>
-				</div>
-				<div class="sidebar-shortcuts-mini">
-					<span class="btn btn-success"></span> <span class="btn btn-info"></span>
-
-					<span class="btn btn-warning"></span> <span class="btn btn-danger"></span>
-				</div>
-			</div>
-			<ul class="nav nav-list">
-			
-                           <!-- 			list product -->
-				<li><a href="#" class="dropdown-toggle"> <i
-						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
-						Product Management <b class="arrow fa fa-angle-down"></b>
-				</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li><a
-							href="<c:url value='/admin/product/list?page=1&limit=2'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List Product
-						</a> <b class="arrow"></b></li>
-					</ul></li>
-					
-                       <!-- 				    List user -->
-				<li><a href="#" class="dropdown-toggle"> <i
-						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
-						User Management <b class="arrow fa fa-angle-down"></b>
-				</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li><a
-							href="<c:url value='/admin/user/listActive?page=1&limit=5'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List User Active
-						</a> <b class="arrow"></b></li>
-						<li><a
-							href="<c:url value='/admin/user/listDelete?page=1&limit=5'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List User Delete
-						</a> <b class="arrow"></b></li>
-					</ul></li>
-			</ul>
-			<div class="sidebar-toggle sidebar-collapse">
-				<i class="ace-icon fa fa-angle-double-left ace-save-state"
-					data-icon1="ace-icon fa fa-angle-double-left"
-					data-icon2="ace-icon fa fa-angle-double-right"></i>
-			</div>
-		</div>
-		<!-- header -->
+	
+	<!-- menu -->
+    	<%@ include file="/common/admin/menu.jsp" %>
+	<!-- menu -->
+	
 
 		<!-- 		body -->
 		<div class="main-content">
@@ -163,23 +75,10 @@
 
 		<!-- 		body -->
 
-		<!-- footer -->
-		<div class="footer">
-			<div class="footer-inner">
-				<div class="footer-content">
-					<span class="bigger-120"> <span class="blue bolder">Â©238_HoangQuocViet: BkAptech.com</span>
-					</span> &nbsp; &nbsp; <span class="action-buttons"> <a href="#">
-							<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-					</a> <a href="#"> <i
-							class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-					</a> <a href="#"> <i
-							class="ace-icon fa fa-rss-square orange bigger-150"></i>
-					</a>
-					</span>
-				</div>
-			</div>
-		</div>
-		<!-- footer -->
+	  <!-- footer -->
+    	<%@ include file="/common/admin/footer.jsp" %>
+    	<!-- footer -->
+    	
 
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse display">
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>

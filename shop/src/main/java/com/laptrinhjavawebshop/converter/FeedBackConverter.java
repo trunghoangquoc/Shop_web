@@ -9,6 +9,7 @@ import com.laptrinhjavawebshop.entity.FeedBackEntity;
 public class FeedBackConverter {
 	public FeedBackDTO toDto(FeedBackEntity entity) {
 		FeedBackDTO result = new FeedBackDTO();
+		result.setId(entity.getId());
 		result.setFullName(entity.getFullName());
 		result.setAddress(entity.getAddress());
 		result.setNumberPhone(entity.getNumberPhone());
@@ -19,8 +20,6 @@ public class FeedBackConverter {
 	
 	
 	
-	//converter qua entity mới xuống data.
-	//thêm mới thì ko cần có id
 	public FeedBackEntity toEntity(FeedBackDTO dto) {
 		
 		FeedBackEntity result = new FeedBackEntity();

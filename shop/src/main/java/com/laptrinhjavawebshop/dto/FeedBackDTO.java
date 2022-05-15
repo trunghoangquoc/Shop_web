@@ -6,7 +6,7 @@ public class FeedBackDTO extends AbstractDTO<FeedBackDTO> {
 	private String email;
 	private String address;
 	private String yourMessager;
-	private Long numberPhone;
+	private String numberPhone;
 	private Long id_user;
 	
 	
@@ -35,10 +35,11 @@ public class FeedBackDTO extends AbstractDTO<FeedBackDTO> {
 	public void setYourMessager(String yourMessager) {
 		this.yourMessager = yourMessager;
 	}
-	public Long getNumberPhone() {
+	
+	public String getNumberPhone() {
 		return numberPhone;
 	}
-	public void setNumberPhone(Long numberPhone) {
+	public void setNumberPhone(String numberPhone) {
 		this.numberPhone = numberPhone;
 	}
 	public Long getId_user() {

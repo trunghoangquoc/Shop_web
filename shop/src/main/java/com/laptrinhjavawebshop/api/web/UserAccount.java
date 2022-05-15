@@ -15,6 +15,7 @@ public class UserAccount {
 	
 	@PostMapping ("/api/registerAccount")
 		public UserDTO registerAccount (@RequestBody UserDTO userDTO) {
+		
 		return userService.registerUser(userDTO);
 	}
 }
