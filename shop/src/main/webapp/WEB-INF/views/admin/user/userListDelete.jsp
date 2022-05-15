@@ -5,14 +5,14 @@
 <c:url var="adminURL" value="/admin/home" />
 <c:url var="userEditURL" value="/admin/user/edit" />
 <c:url var="deleteUserNoActiveAPI" value="/api/user/noActive" />
-
+<c:url var="feedbackListURL" value="/admin/feedback/list" />
 <%@ page import="com.laptrinhjavawebshop.util.SecurityUtils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Product List</title>
+<title>User List Delete</title>
 <link rel="stylesheet"
 	href="<c:url value='/template/admin/assets/css/bootstrap.min.css' />" />
 <link rel="stylesheet"
@@ -46,33 +46,8 @@
 <body class="no-skin">
 
 	<!-- header -->
-	<div id="navbar" class="navbar navbar-default          ace-save-state">
-		<div class="navbar-container ace-save-state" id="navbar-container">
-			<div class="navbar-header pull-left">
-				<a href='<c:url var="adminURL" value="/admin/home"/>'
-					class="navbar-brand"> <small> <i class="fa fa-leaf"></i>
-						Trang quản trị
-				</small>
-				</a>
-			</div>
-			<div
-				class="navbar-buttons navbar-header pull-right collapse navbar-collapse"
-				role="navigation">
-				<ul class="nav ace-nav">
-					<li class="light-blue dropdown-modal"><a
-						data-toggle="dropdown" href="#" class="dropdown-toggle"> Xin
-							chào, <%=SecurityUtils.getPrincipal().getFullName()%>
-					</a>
-					<li class="light-blue dropdown-modal"><a
-						href='<c:url value='/logoutSuccessful'/>'> <i
-							class="ace-icon fa fa-power-off"></i> Thoát
-					</a></li>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- Menu -->
+    <%@ include file="/common/admin/header.jsp" %>
+    <!-- header -->
 
 	<div class="main-container" id="main-container">
 		<script type="text/javascript">
@@ -81,77 +56,12 @@
 			} catch (e) {
 			}
 		</script>
-		<!-- header -->
-		<div id="sidebar"
-			class="sidebar                  responsive                    ace-save-state">
-			<script type="text/javascript">
-				try {
-					ace.settings.loadState('sidebar')
-				} catch (e) {
-				}
-			</script>
-			<div class="sidebar-shortcuts">
-				<div class="sidebar-shortcuts-large">
-					<button class="btn btn-success">
-						<i class="ace-icon fa fa-signal"></i>
-					</button>
-
-					<button class="btn btn-info">
-						<i class="ace-icon fa fa-pencil"></i>
-					</button>
-
-					<button class="btn btn-warning">
-						<i class="ace-icon fa fa-users"></i>
-					</button>
-
-					<button class="btn btn-danger">
-						<i class="ace-icon fa fa-cogs"></i>
-					</button>
-				</div>
-				<div class="sidebar-shortcuts-mini">
-					<span class="btn btn-success"></span> <span class="btn btn-info"></span>
-
-					<span class="btn btn-warning"></span> <span class="btn btn-danger"></span>
-				</div>
-			</div>
-			<ul class="nav nav-list">
-			
-                           <!-- 			list product -->
-				<li><a href="#" class="dropdown-toggle"> <i
-						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
-						Product Management <b class="arrow fa fa-angle-down"></b>
-				</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li><a
-							href="<c:url value='/admin/product/list?page=1&limit=2'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List Product
-						</a> <b class="arrow"></b></li>
-					</ul></li>
-					
-                       <!-- 				    List user -->
-				<li><a href="#" class="dropdown-toggle"> <i
-						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
-						User Management <b class="arrow fa fa-angle-down"></b>
-				</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li><a
-							href="<c:url value='/admin/user/listActive?page=1&limit=5'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List User Active
-						</a> <b class="arrow"></b></li>
-						<li><a
-							href="<c:url value='/admin/user/listDelete?page=1&limit=5'/>"> <i
-								class="menu-icon fa fa-caret-right"></i>List User Delete
-						</a> <b class="arrow"></b></li>
-					</ul></li>
-			</ul>
-			<div class="sidebar-toggle sidebar-collapse">
-				<i class="ace-icon fa fa-angle-double-left ace-save-state"
-					data-icon1="ace-icon fa fa-angle-double-left"
-					data-icon2="ace-icon fa fa-angle-double-right"></i>
-			</div>
-		</div>
-
-		<!-- Menu -->
+		
+	<!-- menu -->
+    	<%@ include file="/common/admin/menu.jsp" %>
+	<!-- menu -->
+	
+		
 
 		<!-- body -->
 		<div class="main-content">
@@ -199,6 +109,8 @@
 														<th>Full Name</th>
 														<th>Email</th>
 														<th>Address</th>
+														<th>Phone Number</th>
+														<th>Role</th>
 														<th>Thao tác</th>
 													</tr>
 												</thead>
@@ -211,6 +123,8 @@
 															<td>${item.fullName}</td>
 															<td>${item.email}</td>
 										                    <td>${item.address}</td>
+										                    <td>${item.phoneNumber}</td>
+										                    <td>${item.roleCode}</td>
 															<td><c:url var="updateUserURL"
 																	value="/admin/user/edit">
 																	<c:param name="id" value="${item.id}" />
@@ -224,6 +138,7 @@
 												</tbody>
 											</table>
 											<ul class="pagination" id="pagination"></ul>
+											 <input type="hidden" value="0" id="status" name="status" />
 											<input type="hidden" value="" id="page" name="page" /> <input
 												type="hidden" value="" id="limit" name="limit" />
 										</div>
@@ -246,6 +161,7 @@
 					startPage : currentPage,
 					onPageClick : function(event, page) {
 						if (currentPage != page) {
+							$('#status').val(0);
 							$('#limit').val(5);
 							$('#page').val(page);
 							$('#formSubmit').submit();
@@ -266,14 +182,21 @@
 					cancelButtonText : "Hủy bỏ",
 				}).then(
 						function(isConfirm) {
-							if (isConfirm) {
+							if (isConfirm && isConfirm.dismiss !=='cancel' && isConfirm.dismiss !=='overlay') {
 								//call api delete
 								var ids = $(
 										'tbody input[type=checkbox]:checked')
 										.map(function() {
 											return $(this).val();
 										}).get();
-								deleteNew(ids);
+								
+								 if (ids != "") {
+										deleteNew(ids);
+								  }else {
+									    swal("Hủy xóa", "", "error");
+								  }	
+							  } else {
+								    swal("Hủy xóa", "", "error");
 							}
 						});
 			}
@@ -285,35 +208,20 @@
 							contentType : 'application/json',
 							data : JSON.stringify(data),
 							success : function(result) {
-								window.location.href = "${userListDeleteURL}?page=1&limit=5&message=delete_success";
+								window.location.href = "${userListDeleteURL}&message=delete_success";
 							},
 							error : function(error) {
-								window.location.href = "${userListDeleteURL}?page=1&limit=5&message=error_system";
+								window.location.href = "${userListDeleteURL}&message=error_system";
 							}
 						});
 			}
 		</script>
 
 		<!-- 		body -->
-
-		<!-- footer -->
-		<div class="footer">
-			<div class="footer-inner">
-				<div class="footer-content">
-					<span class="bigger-120"> <span class="blue bolder">Â©238_HoangQuocViet:
-							BkAptech.com</span>
-					</span> &nbsp; &nbsp; <span class="action-buttons"> <a href="#">
-							<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-					</a> <a href="#"> <i
-							class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-					</a> <a href="#"> <i
-							class="ace-icon fa fa-rss-square orange bigger-150"></i>
-					</a>
-					</span>
-				</div>
-			</div>
-		</div>
-		<!-- footer -->
+		
+        <!-- footer -->
+    	<%@ include file="/common/admin/footer.jsp" %>
+    	<!-- footer -->
 
 		<a href="#" id="btn-scroll-up"
 			class="btn-scroll-up btn btn-sm btn-inverse display"> <i

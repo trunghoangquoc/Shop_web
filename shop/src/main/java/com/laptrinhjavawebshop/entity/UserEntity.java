@@ -3,6 +3,7 @@ package com.laptrinhjavawebshop.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,6 +36,45 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "address")
 	private String address;
 	
+	@Column(name = "phonenumber")
+	private String phoneNumber;
+	
+	@OneToOne(mappedBy = "userCart",cascade = CascadeType.ALL)
+	private CartEntity cart ;
+	
+	@OneToMany(mappedBy = "userOrder",cascade = CascadeType.ALL)
+	private List<OrderEntity> orders = new ArrayList<>();
+	
+
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	private List<FeedBackEntity> feedback = new ArrayList<>();
+	//vì 1 user có nhiều feedback nên cần tạo 1 list
+	
+	
+	@ManyToMany(fetch = FetchType.EAGER)//để EAGER mới load hết role của user
+	@JoinTable(name = "user_role", 
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private List<RoleEntity> roles = new ArrayList<>();
+	
+	
+	
+	public List<OrderEntity> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<OrderEntity> orders) {
+		this.orders = orders;
+	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -41,17 +82,6 @@ public class UserEntity extends BaseEntity {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	@OneToMany(mappedBy = "user")
-	private List<FeedBackEntity> feedback = new ArrayList<>();
-	//vì 1 user có nhiều feedback nên cần tạo 1 list
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_role", 
-				joinColumns = @JoinColumn(name = "user_id"), 
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private List<RoleEntity> roles = new ArrayList<>();
-
 			
 	public String getUserName() {
 		return userName;
@@ -106,5 +136,13 @@ public class UserEntity extends BaseEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public CartEntity getCart() {
+		return cart;
+	}
+
+	public void setCart(CartEntity cart) {
+		this.cart = cart;
 	}
 }

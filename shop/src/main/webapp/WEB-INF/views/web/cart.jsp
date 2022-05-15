@@ -1,232 +1,220 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<%@ page import="com.laptrinhjavawebshop.util.SecurityUtils"%>
+<c:url var="homeURL" value="/trang-chu" />
+<c:url var="product" value="/product" />
+<c:url var="loginURL" value="/dang-nhap" />
+<c:url var="registerURL" value="/dang-ky" />
+<c:url var="contactURL" value="/contact" />
+<c:url var="productDetails" value="/productDetails" />
+<c:url var="deleteProductCartAPI" value="/api/cart" />
+<c:url var="cartURL" value="/cart" />
+<c:url var="ordertURL" value="/order" />
 <!DOCTYPE html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fresh Fruit Cart</title>
-  <link rel="stylesheet" href="<c:url value='/template/web/css/bootstrap.min.css' /> ">
-  <link rel="stylesheet" href="<c:url value='/template/web/css/css/my_style.css' /> ">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh Fruit Cart</title>
+<link rel="stylesheet"
+	href="<c:url value='/template/web/css/bootstrap.min.css' /> ">
+<link rel="stylesheet"
+	href="<c:url value='/template/web/css/my_style.css' /> ">
+
+<!-- 	trên mang -->
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<!-- data table jquery -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script
+	src="<c:url value='/template/admin/sweetalert/sweetalert2.min.js' />"></script>
+<link rel="stylesheet"
+	href="<c:url value='/template/admin/sweetalert/sweetalert2.min.css' />" />
+<!-- icon Bootstrap -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
 </head>
 
 <body>
+	<fmt:setLocale value="vi_VN" />
+	<!-- header -->
+	<%@ include file="/common/web/header.jsp"%>
+	<!-- header -->
 
-  <!-- nav -->
-  <nav class="navbar sticky-top navbar-expand-sm navbar-light  " style="background-color: #f0ecdd;"
-    style="color: aqua ;">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <img src="./image/home.png" alt="" style="width: 40px;">
-      </a>
-      <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#mainmenu"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainmenu">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active"><a class="nav-link" href="index.html">HOME</span></a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Product</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="product.html">Fresh Fruit</a>
-              <a class="dropdown-item" href="product.html">Fresh Fruit</a>
-              <a class="dropdown-item" href="product.html">Fresh Fruit</a>
-              <a class="dropdown-item" href="product.html">Fresh Fruit</a>
-            </div>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
-          <li class="nav-item"><a class="nav-link" href="cart.html">CART</a></li>
+	<!-- chia lÆ°á»t 1-->
+	<br>
 
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <form class="form-inline  login">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            <a href="login.html">
-              Login
-            </a>
-          </button>
-        </form>
-        <form class="form-inline my-2 my-lg-0 sign-up">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            <a href="sign-up.html"> Sign-up</a>
-          </button>
-        </form>
-      </div>
-    </div>
-  </nav>
+	<div class="container ">
+		<form action="" id="formSubmit">
+			<div class="row">
+				<div class="col-xs-12">
+					<c:if test="${not empty message}">
+						<div class="alert alert-${alert}">${message}</div>
+					</c:if>
+					<div class="btn-group" role="group" aria-label="Basic example">
 
-  <!-- banner slide -->
-  <div id="banner" class="carousel slide" data-ride="carousel">
-    <img src="./image/banner_cáº£t.jpg" alt="" style="width:100% ;   height: 300px;">
-</div>
+						<button class="btn btn-outline-success my-2 my-sm-0 "
+							style="height: 38px; width: 90px; text-decoration: none"
+							type="button">
+							<a href='${ordertURL}' style="text-decoration: none;">Order</a>
+						</button>
 
-  <!-- chia lÆ°á»t 1-->
-  <div class="container py-5">
-    <h2 class="mb-5">Giá» hÃ ng cá»§a báº¡n</h2>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>HÃ¬nh áº¢nh</th>
-                <th>TÃªn Sáº£n pháº©m</th>
-                <th>Sá» LÆ°á»£ng</th>
-                <th>GiÃ¡</th>
-                <th>ThÃ nh tiÃªn</th>
-                <th>Lá»±a</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>
-                    <img src="./image/feature-5.jpg" alt="" width="60">
-                </td>
-                <td>Nho Má»¹ Tho</td>
-                <td>
-                    <input type="number" style="width:60px; text-align: center;" value="5">
-                </td>
-                <td>100000</td>
-                <td>500000</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-danger">XÃ³a</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>
-                    <img src="./image/feature-2.jpg" alt="" width="60">
-                </td>
-                <td>Chuá»i Má»¹</td>
-                <td>
-                    <input type="number" style="width:60px; text-align: center;" value="5">
-                </td>
-                <td>100000</td>
-                <td>500000</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-danger">XÃ³a</a>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>
-                    <img src="./image/feature-8.jpg" alt="" width="60">
-                </td>
-                <td>TÃ¡o Äá»</td>
-                <td>
-                    <input type="number" style="width:60px; text-align: center;" value="5">
-                </td>
-                <td>100000</td>
-                <td>500000</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-danger">XÃ³a</a>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>
-                    <img src="./image/lp-2.jpg" alt="" width="60">
-                </td>
-                <td>á»t Äá» Cam</td>
-                <td>
-                    <input type="number" style="width:60px; text-align: center;" value="5">
-                </td>
-                <td>100000</td>
-                <td>500000</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-danger">XÃ³a</a>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>
-                    <img src="./image/lp-1.jpg" alt="" width="60">
-                </td>
-                <td>Rau Xanh</td>
-                <td>
-                    <input type="number" style="width:60px; text-align: center;" value="5">
-                </td>
-                <td>100000</td>
-                <td>500000</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-danger">XÃ³a</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <hr>
-    <div class="row">
-        <div class="col-md-7">
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" name="" style="width:250px" class="form-control" placeholder="MÃ£ giáº£m giÃ¡"">
-                </div>
-                <button class=" btn btn-success">Ãp dá»¥ng </button>
-            </form>
-        </div>
-        <div class="col-md-5">
-            <h4>Tá»ng tiá»n: 50000000 Ä</h4>
-            <p>
-                Shipper: 50000Ä
-            </p>
-            <h3>Thanh toÃ¡n: 505000 Ä</h3>
-            <button class=" btn btn-success">Äi Äáº¿n thanh toÃ¡n</button>
-        </div>
-    </div>
-</div>
+						<button id="btnDelete" type="button" title='Xóa Sản Phẩm'
+							onclick="warningBeforeDelete()" class="btn btn-secondary"
+							style="margin-left: 0px; margin-bottom: 20px;">
+							Delete<span class="bi bi-trash"> </span>
+						</button>
+					</div>
 
-  <!-- footer -->
-  <footer class="footer  text-black-50 py-5 footer-style">
-    <div class="container footer-style">
-        <div class="row">
-            <div class="col-md-4">
-               <img src="./image/logo.png" alt="">
-            <ul class = "info">
-              <li>Address :238 ,Hoang Quoc Viet</li>
-              <li>Phone :+0123456789</li>
-              <li>Email : bkap@gmail.com</li>
-            </ul>
-            </div>
-            <div class="col-md-2 useful-link " >
-                <h5>Useful Link</h5>
-                <ul>
-                    <li><a href="">Trang chủ</a></li>
-                    <li><a href="">Giới thiệu</a></li>
-                    <li><a href="">Đối Tác</a></li>
-                    <li><a href="">Liên hệ</a></li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59587.97785449821!2d105.80194400550647!3d21.02273601626801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9bd9861ca1%3A0xe7887f7b72ca17a9!2zSMOgIE7hu5lpLCBIb8OgbiBLaeG6v20sIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1645101482752!5m2!1svi!2s"
-                    style="border:0; width: 100%; height: 200px;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </div>
-</footer>
+				</div>
+			</div>
 
-     <!-- Copyright -->
-     <div class="footer-copyright text-center py-3" style="background-color: darkmagenta;">Â©238_HoangQuocViet:
-      <a href="https://mdbootstrap.com/"> BkAptech.com</a>
-    </div>
-    <!-- Copyright -->
+			<table class="table table-bordered table-striped" id="table_id">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Image</th>
+						<th>Name Product</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Total</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="item" items="${model.listResult}">
+						<tr>
+							<td><input type="checkbox" id="checkbox_${item.id}"
+								name="checkbox" value="${item.id}"></td>
+							<td><img style="height: 50px; width: 60px;"
+								src="${item.codeImg}" alt=""></td>
+							<td>${item.nameProduct}</td>
+							<td><input class="input_num_cart" type="number"
+								id="quantity_${item.id}" value="${item.quantity}" min="1"
+								style="width: 100px;" onchange="updateQuantity(${item.id})"></td>
+							<td><input type="text" id="price_${item.id}"
+								value="<fmt:formatNumber type="currency" currencySymbol="" maxFractionDigits="0" value = "${item.price}"></fmt:formatNumber>"
+								readonly="readonly" />VND</td>
 
+							<td><input type="text" readonly="readonly"
+								id="total_${item.id}"
+								value="<fmt:formatNumber type="currency" currencySymbol="" maxFractionDigits="0" value = "${item.price*item.quantity}"/>" />
+								VND</td>
+							<td>
+								<button class="btn btn-info" type="button" id="btnAddOrder" onclick="addToOrder(${item.id} , ${item.quantity})">
+									<i class="ace-icon fa fa-check bigger-110"></i> AddOrder
+								</button>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<br />
+			<!-- <div class="row">
+				<div class="col-md-5">
+					<button class=" btn btn-success">Order</button>
+				</div>
+			</div>
+			<br/> -->
+			<ul class="pagination" id="pagination"></ul>
+			<input type="hidden"
+				value="<%=SecurityUtils.getPrincipal().getUsername()%>"
+				id="username" name="username" /> <input type="hidden" value=""
+				id="page" name="page" /> <input type="hidden" value="" id="limit"
+				name="limit" />
 
+		</form>
+	</div>
 
-  <!-- Footer -->
-  <!-- chá»nh sá»­a thá»i gian slide cháº¡y -->
-  <script>
-    $('#carouselExampleIndicators').carousel({
-      interval: 1000 * 3
-    });
-  </script>
-  <script src="<c:url value='/template/web/js/jquery.min.js' />"></script>
-  <script src="<c:url value='/template/web/js/bootstrap.min.js' />"></script>
- 
+	<script>
+    var totalPages = ${model.totalPage};
+	var currentPage = ${model.page};
+	$(function() {
+		window.pagObj = $('#pagination').twbsPagination({
+			totalPages : totalPages,
+			visiblePages : 10,
+			startPage : currentPage,
+			onPageClick : function(event, page) {
+				if (currentPage != page) {
+					$('#limit').val(5);
+					$('#page').val(page);
+					$('#username').val("<%=SecurityUtils.getPrincipal().getUsername()%>");
+					$('#formSubmit').submit();
+				}
+			}
+		});
+	});
+	function warningBeforeDelete() {
+		
+						//call api delete
+						var ids = $(
+								'tbody input[type=checkbox]:checked')
+								.map(function() {
+									return $(this).val();
+								}).get();
+						deleteProduct(ids);
+				}
+	
+	function deleteProduct(data) {
+		$
+				.ajax({
+					url : '${deleteProductCartAPI}',
+					type : 'DELETE',
+					contentType : 'application/json',
+					data : JSON.stringify(data),
+					success : function(result) {
+						window.location.href = "${cartURL}&message=delete_success";
+// 						alert(" Delete Success !");
+					},
+					error : function(error) {
+						window.location.href = "${cartURL}&message=error_system";
+// 						alert(" Delete false !");
+					}
+				});
+	}
+	
+	function updateQuantity(id){
+		var quantity = $("#quantity_"+id).val();
+		var price = $("#price_"+id).val();
+		$("#total_"+id).val(parseFloat(quantity*price).toFixed(3));
+	}
+	 var checkbox = document.getElementsByName('checkbox');
+	 for (var i = 0; i < checkbox.length; i++){
+	 if (checkbox[i].checked === true){
+         result += ' [' + checkbox[i].value + ']';
+     }
+   }
+	</script>
+
+	<!-- footer
+	<%@ include file="/common/web/footer.jsp"%>
+	<!-- footer -->
+	<script src="<c:url value='/template/web/js/jquery.min.js' />"></script>
+	<script src="<c:url value='/template/web/js/bootstrap.min.js' />"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js">
+		
+	</script>
+
+	<script
+		src="<c:url value='/template/web/paging/jquery.twbsPagination.js' />"></script>
 </body>
 
 </html>

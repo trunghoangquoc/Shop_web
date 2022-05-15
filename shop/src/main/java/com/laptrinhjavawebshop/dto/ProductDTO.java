@@ -8,6 +8,14 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 	private String codeImg;
 	private Long categoryId;
 	private String categoryCode;
+	private String categoryName;
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 	public String getName() {
 		return name;
 	}

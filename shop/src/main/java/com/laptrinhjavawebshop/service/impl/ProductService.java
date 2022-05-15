@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -36,16 +37,52 @@ public class ProductService implements IProductService {
 		List<ProductEntity> productEntity = productRepository.findAll(page).getContent();
 		for (ProductEntity item : productEntity) {
 			ProductDTO result = new ProductDTO();
-			result.setId(item.getId());
-			result.setName(item.getName());
-			result.setTotalNumber(item.getTotalNumber());
-			result.setPrice(item.getPrice());
-			result.setShortDescription(item.getShortDescription());
-			result.setCategoryCode(item.getCategory().getCode());
+			result = productConverter.toDto(item);
 			productDTO.add(result);
 		}
 		return productDTO;
 
+	}
+	
+	
+	@Override
+	public List<ProductDTO> findAllLimit() {
+		List<ProductDTO> productDTO = new ArrayList<ProductDTO>();
+		List<ProductEntity> productEntity = productRepository.findAll();
+		for (ProductEntity item : productEntity) {
+			ProductDTO result = new ProductDTO();
+			result = productConverter.toDto(item);
+			if(productDTO.size() < 8) {
+				productDTO.add(result);
+			}
+			
+		}
+		return productDTO;
+	}
+	//find theo category
+	@Override
+	public Page<ProductEntity>  findByCategoryCode(String categoryCode , Pageable page) {
+		return productRepository.findByCategoryCode(categoryCode, page);
+	}
+
+	// find Search
+	@Override
+	public List<ProductDTO> findByName(String name) {
+		List<ProductDTO> productDTO = new ArrayList<ProductDTO>();
+		List<ProductEntity> productEntity = productRepository.findByName(name);
+		
+		if(productEntity != null && productEntity.size() > 0 ) {
+			for (ProductEntity item : productEntity) {
+				ProductDTO result = new ProductDTO();
+				result = productConverter.toDto(item);
+				productDTO.add(result);
+			}
+			return productDTO;
+		}else {
+			return null;
+		}
+		
+		
 	}
 
 	@Override
@@ -59,6 +96,7 @@ public class ProductService implements IProductService {
 		return productConverter.toDTO(entity);
 	}
 
+	//create and update
 	@Override
 	@Transactional
 	public ProductDTO save(ProductDTO dto) {
@@ -73,6 +111,7 @@ public class ProductService implements IProductService {
 			entity.setCreatedDate(oldProductEntity.get().getCreatedDate());
 		}
 		entity.setCategory(category);
+		entity.setCategoryCode(category.getCode());
 		return productConverter.toDto(productRepository.save(entity));
 	}
 

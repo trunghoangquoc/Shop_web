@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import com.laptrinhjavawebshop.util.MessageUtil;
 
 //Đặt tên  để đỡ bị conflicts with existing giữa admin và web
 @Controller(value = "ProductControllerOfAdmin")
+@PreAuthorize("hasAuthority('ADMIN_PRODUCT')")
 public class ProductController {
 
 	@Autowired
@@ -33,9 +35,10 @@ public class ProductController {
 	@Autowired
 	private MessageUtil messageUtil;
 	
+	
 	@RequestMapping(value = "/admin/product/list", method = RequestMethod.GET)
-	public ModelAndView productList(@RequestParam("page") int page,
-                                    @RequestParam("limit") int limit,
+	public ModelAndView productList(@RequestParam(value = "page" ,required = false) int page,
+                                    @RequestParam(value ="limit" ,required = false) int limit,
                                     @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,HttpServletRequest request )  {
 		
 		ModelAndView mav = new ModelAndView("admin/product/productList");

@@ -4,35 +4,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.laptrinhjavawebshop.service.impl.CustomUserDetailsService;
+import com.laptrinhjavawebshop.service.impl.UserDetailsServiceIml;
+
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity /*(debug = true)*/
 @Transactional
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("userDetailsService")
-    private CustomUserDetailsService userDetailsService;
+    private UserDetailsServiceIml userDetailsService;
 
     @Autowired
     private AppConfig appConfig;
 
+	@Autowired
+	@Qualifier ("authenticationSuccessHandler")
+	private AuthenticationSuccessHandler successHandler;
+	
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     
         auth.userDetailsService(userDetailsService).passwordEncoder(appConfig.passwordEncoder());
     }
+
+    @Bean
+	@Override
+	protected AuthenticationManager authenticationManager() throws Exception {
+		// TODO Auto-generated method stub
+		return super.authenticationManager();
+	}
+    
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,11 +55,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         // Các trang không yêu cầu login
-        http.authorizeRequests().antMatchers("/trang-chu", "/dang-ky", "/dang-nhap" ).permitAll();
+        http.authorizeRequests().antMatchers("/trang-chu", "/dang-ky", "/dang-nhap","/" ).permitAll();
+      
         // Trang chỉ dành cho ADMIN
-        http.authorizeRequests().antMatchers("/admin/home").access("hasRole('ADMIN')");
-//        http.authorizeRequests().antMatchers("/admin/product/*").access("hasRole('PRODUCT,ADMIN')");
-//        http.authorizeRequests().antMatchers("/admin/user/*").access("hasRole('MANAGER,ADMIN')");
+        http.authorizeRequests().antMatchers("/admin/home").authenticated();  
+        http.authorizeRequests().antMatchers("/admin/product/*").authenticated();
+        http.authorizeRequests().antMatchers("/admin/user/*").authenticated();
+       
         //trang bat phải đăng nhập quyền.
 //        http.authorizeRequests().antMatchers("/contact").access("hasRole('USER')");
         
@@ -56,13 +73,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Submit URL của trang login
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/dang-nhap")//
-                .defaultSuccessUrl("/customSuccessHandler")////đây Khi đăng nhập thành công thì vào trang này. customSuccessHandler sẽ được khai báo trong controller để hiển thị trang view tương ứng
+//                .defaultSuccessUrl("/customSuccessHandler",true)
+                .successHandler(successHandler)
                 .failureUrl("/dang-nhap?incorrectAccount")//nhap sai thi phai nhap lai
                 .usernameParameter("j_username")//
                 .passwordParameter("j_password")
+                
                 // Cấu hình cho Logout Page.
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
-
+               
         // Cấu hình Remember Me.
         http.authorizeRequests().and() //
                 .rememberMe().tokenRepository(this.persistentTokenRepository()) //

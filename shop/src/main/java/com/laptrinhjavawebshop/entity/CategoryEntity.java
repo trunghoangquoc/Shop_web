@@ -3,6 +3,7 @@ package com.laptrinhjavawebshop.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -20,7 +21,7 @@ public class CategoryEntity extends BaseEntity {
 	@Column(name = "code")
 	private String code;
 
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category" ,cascade = CascadeType.ALL ,orphanRemoval = true)
 	private List<ProductEntity> products = new ArrayList<>();
 	//vì 1 category có nhiều products nên cần tạo 1 list
 
