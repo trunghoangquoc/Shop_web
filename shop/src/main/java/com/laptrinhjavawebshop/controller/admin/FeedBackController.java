@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laptrinhjavawebshop.dto.FeedBackDTO;
-import com.laptrinhjavawebshop.dto.ProductDTO;
 import com.laptrinhjavawebshop.service.IFeedBackService;
 import com.laptrinhjavawebshop.util.MessageUtil;
 

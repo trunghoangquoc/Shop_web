@@ -11,6 +11,14 @@ public class OrderDetailsDTO extends AbstractDTO<OrderDetailsDTO> {
 	private Float totalMoney;
 	private Long productId; 
 	private Long orderId;
+	private Float totalPay;
+	
+	public Float getTotalPay() {
+		return totalPay;
+	}
+	public void setTotalPay(Float totalPay) {
+		this.totalPay = totalPay;
+	}
 	public String getUserNameOrder() {
 		return userNameOrder;
 	}

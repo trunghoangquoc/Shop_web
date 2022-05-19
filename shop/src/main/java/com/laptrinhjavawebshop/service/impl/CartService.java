@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.laptrinhjavawebshop.constant.SystemConstant;
 import com.laptrinhjavawebshop.converter.CartConverter;
@@ -66,7 +67,7 @@ public class CartService implements ICartService {
 						cartDetailsEntity.setPrice(productEntity.get().getPrice());
 						
 						CartDetailsEntity item = new CartDetailsEntity();
-						item = cartDetailsRepository.findByProductId(product.getId());
+						item = cartDetailsRepository.findByProductIdAndUserNameOfCart(product.getId(), myUser.getUsername());
 						if(item != null) {
 							cartDetailsEntity.setQuantity((long) item.getQuantity() + 1);
 							cartDetailsEntity.setId(item.getId());
@@ -141,6 +142,28 @@ public class CartService implements ICartService {
 			cartDetailsRepository.deleteById(id);
 		}
 		return true;
+	}
+
+	@Override
+	@Transactional
+	public List<CartDTO> updateStatusCart(List<CartDTO> cartDto) {
+		List<CartDTO> listCart = new ArrayList<CartDTO>();
+		CartDetailsEntity cartDetailsEntity = new CartDetailsEntity();
+		Optional<CartDetailsEntity> cartDetaiOptional ;
+		for (CartDTO item : cartDto) {
+			cartDetaiOptional = cartDetailsRepository.findById(item.getId());
+			cartDetailsEntity = cartConverter.toEntity(cartDetaiOptional);
+			cartDetailsEntity.setQuantity(item.getQuantity());
+			cartDetailsEntity.setStatus(0);
+			cartDetailsRepository.save(cartDetailsEntity);
+			listCart.add(cartConverter.toDto(cartDetailsEntity));
+		}
+		if(listCart !=null)
+			return listCart;
+		else {
+			return null;
+		}
+		
 	}
 
 	

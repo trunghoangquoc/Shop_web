@@ -11,6 +11,7 @@
 <c:url var="deleteProductCartAPI" value="/api/cart" />
 <c:url var="cartURL" value="/cart" />
 <c:url var="ordertURL" value="/order" />
+<c:url var="cartAPI" value="/api/cart" />
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -117,16 +118,15 @@
 								id="total_${item.id}"
 								value="<fmt:formatNumber type="currency" currencySymbol="" maxFractionDigits="0" value = "${item.price*item.quantity}"/>" />
 								VND</td>
-							<td>
-								<button class="btn btn-info" type="button" id="btnAddOrder" onclick="addToOrder(${item.id} , ${item.quantity})">
-									<i class="ace-icon fa fa-check bigger-110"></i> AddOrder
-								</button>
-							</td>
+							<td></td>
 						</tr>
 					</c:forEach>
 				</tbody>
-			</table>
-			<br />
+			</table>			
+			<button class="btn btn-info" type="button" id="btnAddOrder">
+				<i class="ace-icon fa fa-check bigger-110"></i> AddOrder
+			</button>
+			<br /><br/>
 			<!-- <div class="row">
 				<div class="col-md-5">
 					<button class=" btn btn-success">Order</button>
@@ -136,8 +136,9 @@
 			<ul class="pagination" id="pagination"></ul>
 			<input type="hidden"
 				value="<%=SecurityUtils.getPrincipal().getUsername()%>"
-				id="username" name="username" /> <input type="hidden" value=""
-				id="page" name="page" /> <input type="hidden" value="" id="limit"
+				id="username" name="username" /> 
+				<input type="hidden" value="" id="page" name="page" /> 
+				<input type="hidden" value="" id="limit"
 				name="limit" />
 
 		</form>
@@ -173,8 +174,7 @@
 				}
 	
 	function deleteProduct(data) {
-		$
-				.ajax({
+		$.ajax({
 					url : '${deleteProductCartAPI}',
 					type : 'DELETE',
 					contentType : 'application/json',
@@ -195,12 +195,37 @@
 		var price = $("#price_"+id).val();
 		$("#total_"+id).val(parseFloat(quantity*price).toFixed(3));
 	}
-	 var checkbox = document.getElementsByName('checkbox');
-	 for (var i = 0; i < checkbox.length; i++){
-	 if (checkbox[i].checked === true){
-         result += ' [' + checkbox[i].value + ']';
-     }
-   }
+	
+	 $("#btnAddOrder").click(function(){
+		  var arr = document.getElementsByName("checkbox");
+		  var arr_data = [];
+		  var index = 0;
+		  for(var i = 0; i<arr.length; i++){
+			  if(arr[i].checked==true){
+					var obj = {};
+					obj['id'] = arr[i].value;
+					obj['quantity'] = $("#quantity_"+arr[i].value).val();
+					//obj['price'] = $("#price_"+arr[i].value).val();
+					arr_data[index] = obj;
+					index++;
+			  }
+		  }
+		  console.log(JSON.stringify(arr_data));
+		    $.ajax({
+				url : '${cartAPI}',
+				type : 'PUT',
+				contentType : 'application/json',
+				data : JSON.stringify(arr_data),
+				dataType: 'json',
+				success : function(result) {
+					window.location.href = "${cartURL}&message=addOrder_success";
+				},
+				error : function(error) {
+					window.location.href = "${cartURL}&message=error_system";
+				}
+			}); 
+	 });
+
 	</script>
 
 	<!-- footer

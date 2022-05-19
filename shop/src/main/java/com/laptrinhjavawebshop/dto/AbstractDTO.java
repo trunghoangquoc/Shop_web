@@ -2,12 +2,13 @@ package com.laptrinhjavawebshop.dto;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AbstractDTO<T> {
 	
 	private Long id;
-	private Timestamp createdDate;
+	private Date createdDate;
 	private Timestamp modifiedDate;
 	private String createdBy;
 	private String modifiedBy;
@@ -29,10 +30,11 @@ public class AbstractDTO<T> {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Timestamp getCreatedDate() {
+
+	public Date getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(Timestamp createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 	public Timestamp getModifiedDate() {

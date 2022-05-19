@@ -1,5 +1,7 @@
 package com.laptrinhjavawebshop.controller.web;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,10 +28,15 @@ public class HomeController {
 	private IProductService productService;
 	
     @RequestMapping(value = {"/trang-chu"}, method = RequestMethod.GET)
-    public ModelAndView homePage() {
+    public ModelAndView homePage(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("web/home");
         ProductDTO model = new ProductDTO();
         model.setListResult(productService.findAllLimit());
+        if (request.getParameter("message") != null) {
+			Map<String, String> message = messageUtil.getMessage(request.getParameter("message"));
+			mav.addObject("message", message.get("message"));
+			mav.addObject("alert", message.get("alert"));
+		}
         mav.addObject("model", model);
         return mav;
     }

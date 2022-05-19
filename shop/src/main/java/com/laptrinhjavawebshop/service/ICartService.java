@@ -15,4 +15,7 @@ public interface ICartService {
 	 Page<CartDetailsEntity> findByNameOfCart (String userNameOfCart, Pageable page);
 	 Boolean deleteProductOfCart(long [] ids);
 	 List<CartDetailsEntity> findByStatusAndUserNameOfCart();
+	 
+	 //update Status cart
+	 List<CartDTO> updateStatusCart (List<CartDTO> cartDto);
 }
