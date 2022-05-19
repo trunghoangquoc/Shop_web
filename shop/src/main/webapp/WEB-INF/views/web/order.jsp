@@ -15,7 +15,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact</title>
+<title>Order</title>
 <link rel="stylesheet"
 	href="<c:url value='/template/web/css/bootstrap.min.css' /> ">
 <link rel="stylesheet"
@@ -152,6 +152,11 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<div>
+				<h4 Style = "margin-top : 40px">Total Pay :<input type="text" 
+									value="<fmt:formatNumber type="currency" currencySymbol="" maxFractionDigits="0" value = "${totalPay.totalPay}"></fmt:formatNumber>"
+									readonly="readonly" />  VND</h4>
+				</div>
 			</div>
 		</div>
 	</div>

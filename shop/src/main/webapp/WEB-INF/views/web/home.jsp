@@ -40,7 +40,14 @@
 	<!-- header -->
 	<%@ include file="/common/web/header.jsp"%>
 	<!-- header -->
-
+	
+<!-- 	message -->
+<div class=" sticky-top " >
+  <c:if test="${not empty message}">
+		<div class="alert alert-${alert}">${message}</div>
+	</c:if>
+ </div>
+ 
 	<!-- banner slide -->
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-ride="carousel">
@@ -83,7 +90,7 @@
 		</button>
 	</div>
 	<!-- banner slide -->
-
+ 
 	<!-- luoi product -->
 
 	<div class="container" style="margin-top: 20px; margin-bottom: 20px;">

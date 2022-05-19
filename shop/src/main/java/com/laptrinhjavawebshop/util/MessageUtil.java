@@ -37,6 +37,9 @@ public class MessageUtil {
 		}else if(message.equals("feedback_success")) {
 			result.put("message", "Send FeedBack Success");
 			result.put("alert", "success");
+		}else if(message.equals("addOrder_success")) {
+			result.put("message", "Add To Order Success");
+			result.put("alert", "success");
 		}
 		return result;
 	}

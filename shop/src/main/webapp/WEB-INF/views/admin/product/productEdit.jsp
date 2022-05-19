@@ -199,7 +199,7 @@
             	window.location.href = "${productEditURL}?id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-            	window.location.href = "${productURL}?page=1&limit=2&message=error_system";
+            	window.location.href = "${productURL}?page=1&limit=7&message=error_system";
             }
         });
 	}

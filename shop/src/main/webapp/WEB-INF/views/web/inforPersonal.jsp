@@ -41,7 +41,27 @@
 		<div class="alert alert-${alert}">${message}</div>
 	</c:if>
 	  <!-- message-alert -->
-	  
+	  <div class="container ">
+	  	<div class="btn-group" role="group" aria-label="Basic example" style = "margin-top : 30px;">
+
+						<button class="btn btn-outline-success my-2 my-sm-0 "
+							style="height: 40px; width: 120px; text-decoration: none"
+							type="button">
+							 <c:url var="orderSuccessURL" value="/orderSuccess?page=1&limit=5" >
+				             <c:param name="username" value="<%=SecurityUtils.getPrincipal().getUsername()%>" />
+				             </c:url>
+							<a href='${orderSuccessURL}' style="text-decoration: none;">View Order</a>
+						</button>
+
+						<button class="btn btn-outline-success my-2 my-sm-0 "
+							style="height: 40px; width: 120px; text-decoration: none"
+							type="button">
+							<c:url var="homeURL"
+							value="/trang-chu" /> 
+							<a href='${homeURL}' style="text-decoration: none;">HOME</a>
+						</button>
+					</div>
+	</div>
 	<!-- form login -->
 	<div class=" form-login ">
 		<fieldset>
@@ -99,33 +119,7 @@
     <%@ include file="/common/web/footer.jsp" %>
     <!-- footer -->
 
-	<script>
-	$('#btnAddOrUpdateNew').click(function (e) {
-	    e.preventDefault();
-	    var data = {};
-	    var formData = $('#formSubmit').serializeArray();
-	    $.each(formData, function (i, v) {
-            data[""+v.name+""] = v.value;
-        });
-	    	addAccout(data);
-	});
-	function addAccout(data) {
-		$.ajax({
-            url: '${registerAPI}',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            success: function (result) {
-            	window.location.href = "${registerURL}?message=createAccout_success";
-            },
-            error: function (error) {
-            	window.location.href = "${registerURL}?message=inaccurate_information";
-            }
-        });
-	}
 	
-</script>
 
 
 	<script src="<c:url value='/template/web/js/jquery.min.js' />"></script>

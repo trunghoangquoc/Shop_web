@@ -1,10 +1,13 @@
 package com.laptrinhjavawebshop.service.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,7 @@ import com.laptrinhjavawebshop.converter.OrderDetailsConverter;
 import com.laptrinhjavawebshop.converter.ProductConverter;
 import com.laptrinhjavawebshop.dto.MyUser;
 import com.laptrinhjavawebshop.dto.OrderDTO;
+import com.laptrinhjavawebshop.dto.OrderDetailsDTO;
 import com.laptrinhjavawebshop.entity.CartDetailsEntity;
 import com.laptrinhjavawebshop.entity.OrderDetailsEntity;
 import com.laptrinhjavawebshop.entity.OrderEntity;
@@ -130,8 +134,7 @@ public class OrderService implements IOrderService {
 	}
 
 	
-	//delete sản phẩm order
-
+	//delete sản phẩm order ở web
 	@Override
 	@Transactional
 	public void delete(long[] ids) {
@@ -146,5 +149,75 @@ public class OrderService implements IOrderService {
 			cartDetailsRepository.save(cartDetailsEntity);
 		}
 	}
+
+//find all list order
+	@Override
+	public List<OrderDTO> findAll(Pageable page) {
+		List<OrderDTO> orderDto = new ArrayList<OrderDTO>();
+		List<OrderEntity> orderEntity = new ArrayList<OrderEntity>();
+		orderEntity = orderRepository.findAll(page).getContent();
+		
+		for (OrderEntity item : orderEntity) {
+			OrderDTO result = new OrderDTO();
+			result = orderConverter.toDto(item);
+			orderDto.add(result);
+		}
+		return orderDto;
+	}
+
+
+	@Override
+	public int getTotalItem() {
+		
+		return (int) orderRepository.count();
+	}
+
+
+	// duyệt đơn hàng
+	@Override
+	public void reivewOrder(long[] ids) {
+		OrderEntity orderEntity = new OrderEntity();
+		UserEntity userEntity = new UserEntity();
+		Optional<OrderEntity> result ;
+		for (long id : ids) {
+			result = orderRepository.findById(id);
+			orderEntity = orderConverter.toOrderEntity(result);
+			orderEntity.setOrderStatus(0);
+			orderEntity.setShortDescription("Đã Giao Hàng");
+			
+			//set userId
+			userEntity = userRepository.findByUserName(orderEntity.getUserNameOrder());
+			orderEntity.setUserOrder(userEntity);
+			
+			orderRepository.save(orderEntity);
+		}
+	}
+
+
+	@Override
+	public List<OrderDetailsDTO> orderDetails(long orderId) {
+		List<OrderDetailsDTO> orderDetailDto = new ArrayList<OrderDetailsDTO>();
+		List<OrderDetailsEntity> orderDetailsEntity = new ArrayList<OrderDetailsEntity>();
+		Optional<OrderEntity> orderEntity  ;
+		orderDetailsEntity = orderDetailsRepository.findByOrderId(orderId);
+		
+		for (OrderDetailsEntity item : orderDetailsEntity) {
+			orderEntity = orderRepository.findById(orderId);
+			OrderDetailsDTO dto = new OrderDetailsDTO();
+			dto = orderDetailsConverter.toDto(item);
+			dto.setTotalPay(orderEntity.get().getTotalPay());
+			orderDetailDto.add(dto);
+		}
+		return orderDetailDto;
+	}
+
+
+	@Override
+	public Page<OrderEntity> findByUserNameOrder(String userNameOrder, Pageable page) {
+		
+		return orderRepository.findByUserNameOrder(userNameOrder, page);
+	}
+	
+	
 
 }

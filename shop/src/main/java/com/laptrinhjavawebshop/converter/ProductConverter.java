@@ -48,7 +48,7 @@ public class ProductConverter {
 		productEntity.setPrice(entity.get().getPrice());
 		productEntity.setShortDescription(entity.get().getShortDescription());
 		productEntity.setCodeImg(entity.get().getCodeImg());
-		
+		productEntity.setCategoryCode(entity.get().getCategoryCode());
 		return productEntity;
 	}
 	

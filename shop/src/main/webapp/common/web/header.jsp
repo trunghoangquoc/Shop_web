@@ -55,7 +55,8 @@
 				<security:authorize access="isAuthenticated()">
 					<form class="form-inline my-2 my-lg-0 login">
 						<button class="button1 btn-outline-success login" type="submit">
-							<a href='#' style="color: black; text-decoration: none;" >
+						<c:url var="account" value="/account" />
+							<a href='${account}' style="color: black; text-decoration: none;" >
 								Hello, <%=SecurityUtils.getPrincipal().getFullName()%></a>
 						</button>
 					</form>

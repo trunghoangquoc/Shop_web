@@ -84,6 +84,17 @@
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 					
+						              <!-- 			list order -->
+				<li><a href="#" class="dropdown-toggle"> <i
+						class="menu-icon fa fa-list"></i> <span class="menu-text"></span>
+						Order Management <b class="arrow fa fa-angle-down"></b>
+				</a> <b class="arrow"></b>
+					<ul class="submenu">
+						<li><a
+							href="<c:url value='/admin/orderList?page=1&limit=7'/>"> <i
+								class="menu-icon fa fa-caret-right"></i>List Order
+						</a> <b class="arrow"></b></li>
+					</ul></li>
 			</ul>
 			<div class="sidebar-toggle sidebar-collapse">
 				<i class="ace-icon fa fa-angle-double-left ace-save-state"

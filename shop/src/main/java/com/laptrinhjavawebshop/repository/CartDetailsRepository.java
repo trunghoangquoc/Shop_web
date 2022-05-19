@@ -16,6 +16,8 @@ public interface CartDetailsRepository extends JpaRepository<CartDetailsEntity, 
 
 	Page<CartDetailsEntity> findByUserNameOfCart(String userNameOfCart, Pageable page);
 	CartDetailsEntity  findByProduct(ProductEntity product);
-	CartDetailsEntity findByProductId (Long productId);
+	CartDetailsEntity findByProductIdAndUserNameOfCart (Long productId , String userNameOfCart);
     List<CartDetailsEntity> findByStatusAndUserNameOfCart(Integer status , String userNameOfCart);
+    
+   
 }

@@ -2,7 +2,6 @@ package com.laptrinhjavawebshop.controller.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laptrinhjavawebshop.converter.ProductConverter;
-import com.laptrinhjavawebshop.dto.CartDTO;
 import com.laptrinhjavawebshop.dto.ProductDTO;
-import com.laptrinhjavawebshop.entity.CartDetailsEntity;
 import com.laptrinhjavawebshop.entity.ProductEntity;
 import com.laptrinhjavawebshop.service.IProductService;
 

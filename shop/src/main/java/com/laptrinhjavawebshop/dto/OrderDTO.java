@@ -14,10 +14,28 @@ public class OrderDTO extends AbstractDTO<OrderDTO> {
 	private String shortDescription;
 	private Float totalPay;
 	
+	public OrderDTO() {
+		super();
+		
+	}
 	
+	public OrderDTO(String userNameOrder, String receiverName, String receiverPhone, String receiverAddress,
+			String email, Integer orderStatus, String shortDescription, Float totalPay) {
+		super();
+		this.userNameOrder = userNameOrder;
+		this.receiverName = receiverName;
+		this.receiverPhone = receiverPhone;
+		this.receiverAddress = receiverAddress;
+		this.email = email;
+		this.orderStatus = orderStatus;
+		this.shortDescription = shortDescription;
+		this.totalPay = totalPay;
+	}
+
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
